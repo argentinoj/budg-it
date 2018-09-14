@@ -7,12 +7,23 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Budg-it</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="App-intro">
+          To get started, follow the instructions below.
+          <br></br>
+          <div>
+            <label>Salary/Income</label>
+          </div>
+          <div>
+            <select name="salaray">
+              <option value="Dirt Poor">Dirt Poor</option>
+              <option value="Student">Student</option>
+              <option value="Middle Class">Middle Class</option>
+              <option value="Jeff Bezos (CEO of Amazon)">Jeff Bezos (CEO of Amazon)</option>
+            </select>
+          </div>
+        </div>
       </div>
     );
   }
