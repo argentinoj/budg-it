@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {IncomeOption} from './components/IncomeOption';
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,19 +11,9 @@ class App extends Component {
           <h1 className="App-title">Budg-it</h1>
         </header>
         <div className="App-intro">
-          To get started, follow the instructions below.
+          <IncomeOption>></IncomeOption>
           <br></br>
-          <div>
-            <label>Salary/Income</label>
-          </div>
-          <div>
-            <select name="salaray">
-              <option value="Dirt Poor">Dirt Poor</option>
-              <option value="Student">Student</option>
-              <option value="Middle Class">Middle Class</option>
-              <option value="Jeff Bezos (CEO of Amazon)">Jeff Bezos (CEO of Amazon)</option>
-            </select>
-          </div>
+          <IncomeOption></IncomeOption>
         </div>
       </div>
     );
