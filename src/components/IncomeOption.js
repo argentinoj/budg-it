@@ -2,27 +2,59 @@ import React, { Component } from 'react';
 import './IncomeOption.css';
 
 export class IncomeOption extends Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            employmentStatus: "", 
+            incomeValue: 0, 
+            inputColor: 'red'
+        }
+
+        this.updateEmploymentStatus = this.updateEmploymentStatus.bind(this);
+        this.setIncomeValue = this.setIncomeValue.bind(this);
+    }
+
+    updateEmploymentStatus(evt){
+        this.setState({
+            employmentStatus: evt.target.value
+        });
+    }
+
+    setIncomeValue(evt){
+        if(evt.key === 'Enter'){
+            this.setState({
+                incomeValue: evt.target.value, 
+                inputColor: 'green'
+            });
+
+        }
+    }
+
+    
+
+
+    
     render() {
         return(
             <div className = "box">
                 <span>
-                    Employment Status:
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Status
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Employed</a>
-                            <a class="dropdown-item" href="#">Unemployed</a>
-                            <a class="dropdown-item" href="#">Student</a>
-                        </div>
+                    <div onChange = {this.updateEmploymentStatus} className="form-group" id = "income">
+                        <label for="exampleFormControlSelect1">Employment Status: </label>
+                        <span id = "colorEmpStatus">{this.state.employmentStatus}</span>
+                        <select className="form-control" id="exampleFormControlSelect1">
+                        <option>Employed</option>
+                        <option>Unemployed</option>
+                        <option>Student</option>
+                        </select>
                     </div>
                 </span>
 
                 <span>
-                    <div class="form-group" id = "income">
+                    <div onKeyPress = {this.setIncomeValue} className="form-group" id = "income">
                         <label for="comment">Income:</label>
-                        <textarea class="form-control" rows="1" id="comment"></textarea>
+                        <span style={{color: this.state.inputColor}}>{this.state.incomeValue}</span>
+                        <input type = "number" className="form-control" rows="1" id="comment"></input>
                     </div>
                 </span>
 

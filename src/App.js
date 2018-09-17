@@ -12,7 +12,6 @@ class App extends Component {
         </header>
         <div className="App-intro">
           <IncomeOption>></IncomeOption>
-          <br></br>
           <IncomeOption></IncomeOption>
         </div>
       </div>
