@@ -5,7 +5,7 @@ export class HomePage extends Component{
     constructor(){
         super();
         this.state = ({
-            wallet: 0,
+            wallet: 25000,
             wallet_sign: "+",
         });
     }
