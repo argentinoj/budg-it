@@ -1,0 +1,13 @@
+body{
+    margin: 5%;
+}
+.form-group{
+    font-size: 150%;
+    text-align: left;
+    margin: 15%;
+}
+.SavingsDisplay{
+    text-align: center;
+    font-size: 200%;
+    margin-top: 5%;
+}
