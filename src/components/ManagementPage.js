@@ -7,12 +7,12 @@ export class ManagementPage extends Component{
         this.state = ({
             chosen_savings_threshold: 0,
             total_wallet_amount: 15000,
-            savingsColor: "red",
+            savingsColor: "white",
             })
     }
 
     setThreshold = (e) => {
-        this.setState({savingsColor: "green"});
+        this.setState({savingsColor: "white"});
         this.setState({chosen_savings_threshold: e.target.value});
     }
 
@@ -26,7 +26,7 @@ export class ManagementPage extends Component{
                     <input onChange = {this.setThreshold} type="range" defaultValue = "0" max = "100" class="form-control-range" id="formControlRange"></input>
                     
                     <div className = "SavingsDisplay">
-                        <div>Savings</div>
+                        <div>Your Savings</div>
                         <div style = {{color: this.state.savingsColor}} >
                             $ {Number(this.state.chosen_savings_threshold/100 * this.state.total_wallet_amount).toFixed(0)}
                         </div>
