@@ -11,6 +11,8 @@ export class ManagementPage extends Component{
             savingsColor: "white"
             })
             this.transactionList = [new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
+
+            this.addTransaction = this.addTransaction.bind(this);
     }
 
     setThreshold = (e) => {
@@ -21,7 +23,7 @@ export class ManagementPage extends Component{
     addTransaction = (t) => {
         // takes in a transactionitem, and appends it to the transaction list
         this.transactionList.push(t);
-        this.render();
+
     }
 
     render(){
