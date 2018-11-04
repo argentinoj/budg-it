@@ -8,8 +8,8 @@ export class TransactionTracking extends Component{
         this.state = {
             
         }
-        this.transactionList = [];
-        
+        this.transactionList = [TransactionItem(1, "a", true, 0), TransactionItem(1, "a", false, 0)];
+        this.render = this.render.bind(this);
     }
 
     addTransaction(tran){
@@ -21,7 +21,7 @@ export class TransactionTracking extends Component{
             <div>
                 <ol>
                     <li>History:</li>
-                    <li> {this.transactionList.map((trans) => <Item key = {trans.id} item={trans.title + " | " + String(trans.amount) + " | " + (trans.spontaneous ? "Spontaneous" : "Periodic")} />)} </li>
+                    <li> {this.transactionList.map((trans) => <li key = {trans.id} item={trans.title + " | " + String(trans.amount) + " | " + (trans.spontaneous ? "Spontaneous" : "Periodic")} />)} </li>
                 </ol>
             </div>
         );

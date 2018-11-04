@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './ManagementPage.css';
+import { TransactionTracking } from './TransactionTracking';
 
 export class ManagementPage extends Component{
     constructor(){
@@ -8,6 +9,7 @@ export class ManagementPage extends Component{
             chosen_savings_threshold: 0,
             total_wallet_amount: 15000,
             savingsColor: "white",
+            transactionTable: {TransactionTracking(){}}
             })
     }
 
@@ -33,6 +35,9 @@ export class ManagementPage extends Component{
                     </div>
                 </div>
             </form>
+            <div class="TransactionTable">
+                <div>${this.state.transactionTable.render()}</div>
+            </div> 
 
         </div>
         );
