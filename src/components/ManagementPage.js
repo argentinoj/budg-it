@@ -10,12 +10,18 @@ export class ManagementPage extends Component{
             total_wallet_amount: 15000,
             savingsColor: "white"
             })
-            this.transactionList = [new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 0)];
+            this.transactionList = [new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
     }
 
     setThreshold = (e) => {
         this.setState({savingsColor: "white"});
         this.setState({chosen_savings_threshold: e.target.value});
+    }
+
+    addTransaction = (t) => {
+        // takes in a transactionitem, and appends it to the transaction list
+        this.transactionList.push(t);
+        this.render();
     }
 
     render(){
@@ -32,14 +38,21 @@ export class ManagementPage extends Component{
                         <div style = {{color: this.state.savingsColor}} >
                             $ {Number(this.state.chosen_savings_threshold/100 * this.state.total_wallet_amount).toFixed(0)}
                         </div>
+                        
                     </div>
+                    
                 </div>
-            </form>
-            <div class="TransactionTable">
-                    <div>History:</div>
-                    <div> {this.transactionList.map((trans) => <li key = {trans.state.id}>  {trans.state.title + " | " + String(trans.state.amount) + " | " + (trans.state.spontaneous ? "Spontaneous" : "Periodic")} </li>)} </div>
+                <div class="TransactionTable">
+                    <div align="left" style ={{color: "gray"}}><br/>History:</div>
+                    <div align="left" style ={{color: "black"}}> {this.transactionList.map((trans) => <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "blue"}}>  
+                    {trans.state.title + " | " + 
+                        (trans.state.amount < 0 ? " - $" : " + $") + 
+                        String(Math.abs(trans.state.amount)) + " | " +
+                         (trans.state.spontaneous ? "Spontaneous" : "Periodic")} </li>)} </div>
                 
-            </div> 
+                    </div> 
+            </form>
+            
 
         </div>
         );

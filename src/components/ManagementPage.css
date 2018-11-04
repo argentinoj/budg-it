@@ -14,3 +14,7 @@ body{
     font-size: 200%;
     margin-top: 5%;
 }
+.TransactionTable{
+    text-align: left;
+    font-size: 100%;
+}
