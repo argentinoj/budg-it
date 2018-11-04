@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './ManagementPage.css';
-import { TransactionTracking } from './TransactionTracking';
+import { TransactionItem } from './TransactionTracking';
 
 export class ManagementPage extends Component{
     constructor(){
@@ -8,9 +8,9 @@ export class ManagementPage extends Component{
         this.state = ({
             chosen_savings_threshold: 0,
             total_wallet_amount: 15000,
-            savingsColor: "white",
-            transactionTable: {TransactionTracking(){}}
+            savingsColor: "white"
             })
+            this.transactionList = [new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 0)];
     }
 
     setThreshold = (e) => {
@@ -36,7 +36,9 @@ export class ManagementPage extends Component{
                 </div>
             </form>
             <div class="TransactionTable">
-                <div>${this.state.transactionTable.render()}</div>
+                    <div>History:</div>
+                    <div> {this.transactionList.map((trans) => <li key = {trans.state.id}>  {trans.state.title + " | " + String(trans.state.amount) + " | " + (trans.state.spontaneous ? "Spontaneous" : "Periodic")} </li>)} </div>
+                
             </div> 
 
         </div>

@@ -9,7 +9,6 @@ export class TransactionTracking extends Component{
             
         }
         this.transactionList = [TransactionItem(1, "a", true, 0), TransactionItem(1, "a", false, 0)];
-        this.render = this.render.bind(this);
     }
 
     addTransaction(tran){
@@ -33,9 +32,9 @@ export class TransactionItem{
     constructor(_amount, _title, _spontaneous, _id){
 
         this.state = ({
-            amount: 100,
-            title: "food",
-            spontaneous: true,
+            amount: _amount,
+            title: _title,
+            spontaneous: _spontaneous,
             id: _id
         });
         
