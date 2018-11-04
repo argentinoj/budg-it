@@ -19,7 +19,10 @@ export class TransactionTracking extends Component{
     render(){
         return(
             <div>
-                {this.transactionList.map((trans) => <Item key = {trans.id} item={trans.title + " | " + String(trans.amount) + " | " + (trans.spontaneous ? "Spontaneous" : "Periodic")} />)}
+                <ol>
+                    <li>History:</li>
+                    <li> {this.transactionList.map((trans) => <Item key = {trans.id} item={trans.title + " | " + String(trans.amount) + " | " + (trans.spontaneous ? "Spontaneous" : "Periodic")} />)} </li>
+                </ol>
             </div>
         );
     }
