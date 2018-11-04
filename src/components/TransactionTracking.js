@@ -8,26 +8,34 @@ export class TransactionTracking extends Component{
         this.state = {
             
         }
-
-        this.addTransaction = this.addTransaction.bind(this);
+        this.transactionList = [];
+        
     }
 
-    addTransaction(name, value ){
-
+    addTransaction(tran){
+        this.transactionList.push(tran);
     }
 
-
+    render(){
+        return(
+            <div>
+                {this.transactionList.map((trans) => <Item key = {trans.id} item={trans.title + " | " + String(trans.amount) + " | " + (trans.spontaneous ? "Spontaneous" : "Periodic")} />)}
+            </div>
+        );
+    }
 
 };
 
-export class TransactionItem extends Component{
-    constructor(props){
-        super(props);
+export class TransactionItem{
+    constructor(_amount, _title, _spontaneous, _id){
 
-        this.state = {
-            
-        }
-
+        this.state = ({
+            amount: 100,
+            title: "food",
+            spontaneous: true,
+            id: _id
+        });
+        
     }
 
 
