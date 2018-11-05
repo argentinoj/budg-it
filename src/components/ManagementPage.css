@@ -1,4 +1,6 @@
-
+.Page{
+    margin: 1%;
+}
 .form-group{
     color: black;
     font-size: 150%;
@@ -19,9 +21,10 @@
     font-family: futura;
 }.doneButton{
     color: black;
-    font-size: 150%;
+    font-size: 500%;
     text-align: left;
     width: 6%;
+    margin-left: 5%;
     font-family: futura;
 }.doneButton:hover{
     cursor: pointer;

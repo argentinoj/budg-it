@@ -41,8 +41,8 @@ export class ManagementPage extends Component{
         }
 
         return(
-        <div>
-            <div className = "doneButton" onClick = {this.route}>DONE</div>
+        <div className = "Page">
+            <div className = "doneButton" onClick = {this.route}>=</div>
             <div className = "yourSavings">Your Savings</div>
             <div>
                 <div class="big">

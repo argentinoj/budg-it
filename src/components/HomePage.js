@@ -12,6 +12,7 @@ export class HomePage extends Component{
             wallet: ((100-this.current_savings_percent)/100 * this.total_wallet_amount),
             wallet_sign: "+",
             redirect: false,
+            routeToManagement: false,
         });
     }
 
@@ -29,15 +30,23 @@ export class HomePage extends Component{
         this.setState({redirect: true})
     }
 
+    routeToManagement = () => {
+        this.setState({routeToManagement: true})
+    }
+
 
     render(){
         if (this.state.redirect) {
-            return <Redirect push to="/mp" />;
+            return <Redirect push to="/t" />;
           }
-
+        if (this.state.routeToManagement) {
+            return <Redirect push to="/mp" />;
+        }
+        
         return(
         <div className = "BackGround">
-            <div className = "Head">budge.it</div>
+            <span className = "Menu" onClick = {this.routeToManagement}>=  </span>
+            <span className = "Head">budge.it</span>
             <div className = "Value">{this.state.wallet_sign}${this.state.wallet}</div>
             <div className = "Footer" onClick = {this.placeHolder}>∇</div>
         </div>
