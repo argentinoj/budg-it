@@ -1,6 +1,6 @@
 div{
     padding: 1px;
-    width: 100%;
+    /* width: 100%; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -15,14 +15,14 @@ body{
 }
 
 #transaction{ 
-    display: inline;
+    white-space: nowrap;
+    overflow-x: auto;
+    display: inline-block
 }
 
-#money{
-    display: inline;
-
+.form-control{
+    width: 100%;
 }
-
 
 /* .regularity{
 

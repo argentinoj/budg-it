@@ -23,12 +23,36 @@ export class TransactionPage extends Component {
                     <br/>
                     ${this.state.name}
                 </div>
-                <div className="input-group" id="transaction">
-                    <form>
-                        <button type="button" className="btn btn-success" onClick ={this.setPositive}>+</button>
-                        <button type="button" className="btn btn-danger" onClick={this.setNegative}>-</button>
+                <div className="input-group row justify-content-md-center row" id="transaction">
+                    <form className="form-inline">
+                        <span className="btn-group btn-group-toggle col col-3" data-toggle="buttons" id="sign">
+                            <label className="btn btn-success active">
+                                <input
+                                    type="radio"
+                                    name="positive"
+                                    id="positive"
+                                    autoComplete="off"
+                                    checked={this.state.positive}/>
+                                +
+                            </label>
 
-                        <span className="input-group-text" id="money" defaultValue="0" type="number">$</span>
+                            <label className="btn btn-danger">
+                                <input
+                                    type="radio"
+                                    name="negative"
+                                    id="negative"
+                                    autoComplete="off"
+                                    checked={!this.state.positive}/>
+                                -
+                            </label>
+                        </span>
+                        <span className="input-group col col-9" id="money">
+                            <span className="input-group-prepend">
+                                <span className="input-group-text">$</span>
+                            </span>
+                            <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)">
+                            </input>
+                        </span>
                     </form>
 
                 </div>
