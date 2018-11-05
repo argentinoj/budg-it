@@ -17,4 +17,9 @@ body{
 .TransactionTable{
     text-align: left;
     font-size: 100%;
+}.doneButton{
+    color: white;
+    font-size: 150%;
+}.doneButton:hover{
+    cursor: pointer;
 }
