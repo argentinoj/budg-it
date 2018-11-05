@@ -19,9 +19,7 @@ export class TransactionPage extends Component {
         return (
             <div id="page">
                 <div id="header">
-                    ∇
-                    <br/>
-                    ${this.state.name}
+                    Transaction
                 </div>
                 <div className="input-group row justify-content-md-center row" id="transaction">
                     <form className="form-inline">

@@ -29,6 +29,9 @@ class App extends Component {
 
           <Route path = "/mp" 
             render = {(props) => <ManagementPage/>}/>
+
+          <Route path = "/t"
+            render = {(props) => <TransactionPage/>}/>
         </Switch>
       </Router>
     );

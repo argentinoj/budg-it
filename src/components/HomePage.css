@@ -1,6 +1,4 @@
-body{
-    background-color: rgb(24, 233, 24);
-}
+
 #mButton{
     width: 30%;
 }
@@ -9,17 +7,17 @@ body{
     text-align: center
 }
 .Head{
-    color: white;
+    color: black;
     font-size: 500%;
     font-family: futura;
 }
 .Value{
-    color: white;
+    color: black;
     font-size: 600%;
     font-family: futura;
 }
 .Footer{
-    color: white;
+    color: black;
     font-size: 500%;
     font-family: futura;
     width: 10%;

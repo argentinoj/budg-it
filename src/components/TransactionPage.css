@@ -4,14 +4,9 @@ div{
     margin-left: auto;
     margin-right: auto;
 }
-
-body{
-    background-color: white;
-}
-
 #header{
-    background-color: rgb(24, 233, 24);
-    color: white;
+    color: black;
+    font-size: 200%;
 }
 
 #transaction{ 
