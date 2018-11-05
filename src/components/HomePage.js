@@ -4,10 +4,10 @@ import {ManagementPage} from './ManagementPage';
 import './HomePage.css';
 
 export class HomePage extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = ({
-            wallet: 25000,
+            wallet: 15000,
             wallet_sign: "+",
             redirect: false,
         });
@@ -23,6 +23,7 @@ export class HomePage extends Component{
 
     placeHolder = () => {
         console.log("Will Route To Management Page");
+        this.props.setTotalAmount(this.state.wallet);
         this.setState({redirect: true})
     }
 

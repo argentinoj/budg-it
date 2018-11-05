@@ -7,12 +7,28 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = ({
+      total_amount_managment: 0,
+    });
+    this.setTotalAmount = this.setTotalAmount.bind(this);
+  }
+
+  setTotalAmount(t_Amount){
+    this.setState({total_amount_managment: t_Amount});
+  }
+
   render() {
     return (
       <Router>
         <Switch>
-          <Route exact path = "/" component = {HomePage}/>
-          <Route path = "/mp" component = {ManagementPage}/>
+          <Route exact path = "/" 
+            render = {(props) => <HomePage/>}/>
+
+          <Route path = "/mp" 
+            render = {(props) => <ManagementPage/>}/>
         </Switch>
       </Router>
     );

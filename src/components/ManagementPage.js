@@ -43,6 +43,7 @@ export class ManagementPage extends Component{
         return(
         <div>
             <div className = "doneButton" onClick = {this.route}>DONE</div>
+            <div className = "yourSavings">Your Savings</div>
             <div>
                 <div class="big">
                     <div class="pie pie--value pie--disc" style={{"--percent":this.state.chosen_savings_threshold,"--amount":(this.state.chosen_savings_threshold/100 * this.state.total_wallet_amount)}}></div>
@@ -51,17 +52,9 @@ export class ManagementPage extends Component{
             <form>
                 <div class="form-group">
                     <label for="formControlRange">Enter Savings Percentage: {this.state.chosen_savings_threshold} %</label>
-                    <input onChange = {this.setThreshold} type="range" defaultValue = "0" max = "100" class="form-control-range" id="formControlRange"></input>
-                    
-                    <div className = "SavingsDisplay">
-                        <div>Your Savings</div>
-                        <div style = {{color: this.state.savingsColor}} >
-                            $ {Number(this.state.chosen_savings_threshold/100 * this.state.total_wallet_amount).toFixed(0)}
-                        </div>
-                        
-                    </div>
-                    
+                    <input onChange = {this.setThreshold} type="range" defaultValue = "0" max = "100" class="form-control-range" id="formControlRange"></input>   
                 </div>
+
                 <div class="TransactionTable">
                     <div align="left" style ={{color: "gray"}}>History:</div>
                     <div align="left" style ={{color: "black"}}> {this.transactionList.map((trans) => <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "blue"}}>  
@@ -69,8 +62,7 @@ export class ManagementPage extends Component{
                         (trans.state.amount < 0 ? " - $" : " + $") + 
                         String(Math.abs(trans.state.amount)) + " | " +
                          (trans.state.spontaneous ? "Spontaneous" : "Periodic")} </li>)} </div>
-                
-                    </div> 
+                </div> 
             </form>
             
 
