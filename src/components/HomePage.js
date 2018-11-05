@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { Redirect } from "react-router";
+import {ManagementPage} from './ManagementPage';
 import './HomePage.css';
 
 export class HomePage extends Component{
@@ -7,6 +9,7 @@ export class HomePage extends Component{
         this.state = ({
             wallet: 25000,
             wallet_sign: "+",
+            redirect: false,
         });
     }
 
@@ -20,10 +23,15 @@ export class HomePage extends Component{
 
     placeHolder = () => {
         console.log("Will Route To Management Page");
+        this.setState({redirect: true})
     }
 
 
     render(){
+        if (this.state.redirect) {
+            return <Redirect push to="/mp" />;
+          }
+
         return(
         <div className = "BackGround">
             <div className = "Head">budge.it</div>

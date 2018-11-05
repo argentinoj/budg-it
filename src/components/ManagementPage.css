@@ -13,4 +13,9 @@ body{
     text-align: center;
     font-size: 200%;
     margin-top: 5%;
+}.doneButton{
+    color: white;
+    font-size: 150%;
+}.doneButton:hover{
+    cursor: pointer;
 }

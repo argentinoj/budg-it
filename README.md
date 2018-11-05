@@ -1,3 +1,16 @@
+## How to install and run
+
+  What you need installed:
+    Node.js
+  How to Install and Run
+    1.) Clone or download the repository onto your client computer
+    2.) Open your terminal and navigate to the directory containing your clone
+    3.) run "npm install"
+    4.) also run "npm install react-router-dom --save"
+    5.) run "npm start"
+
+
+
 ## Folder Structure
 ```
 my-app/
