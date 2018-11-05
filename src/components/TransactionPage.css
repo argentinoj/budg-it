@@ -1,5 +1,8 @@
 div{
     padding: 1px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 body{
@@ -11,7 +14,7 @@ body{
     color: white;
 }
 
-#transaction{
+#transaction{ 
     display: inline;
 }
 
