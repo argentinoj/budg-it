@@ -11,24 +11,42 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = ({
-      total_amount_managment: 0,
+      total_from_managment: 15000,
+      percentage_from_managment: 0,
     });
-    this.setTotalAmount = this.setTotalAmount.bind(this);
+    this.receiveTotal = this.receiveTotal.bind(this);
+    this.receivePercentage = this.receivePercentage.bind(this);
   }
 
-  setTotalAmount(t_Amount){
-    this.setState({total_amount_managment: t_Amount});
+
+  receiveTotal(total){
+    console.log("Total Received" + total)
+    this.setState({total_from_managment: total})
   }
+
+  receivePercentage(percentage){
+    console.log("Percent Received" + percentage)
+
+    this.setState({percentage_from_managment: percentage})
+  }
+
 
   render() {
     return (
       <Router>
         <Switch>
           <Route exact path = "/" 
-            render = {(props) => <HomePage/>}/>
+            render = {(props) => <HomePage 
+              total_wallet_amount = {this.state.total_from_managment} 
+              current_savings_percent = {this.state.percentage_from_managment}/>}
+          />
 
           <Route path = "/mp" 
-            render = {(props) => <ManagementPage/>}/>
+            render = {(props) => <ManagementPage 
+              receiveTotal = {this.receiveTotal} 
+              receivePercentage = {this.receivePercentage}/>}
+
+            />
 
           <Route path = "/t"
             render = {(props) => <TransactionPage/>}/>

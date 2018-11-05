@@ -18,9 +18,14 @@ export class ManagementPage extends Component{
                                     new TransactionItem(400, "Paycheck", false, 1),
             ]; //[new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
 
+
             this.addTransaction = this.addTransaction.bind(this);
     }
 
+    componentWillMount(){
+        console.log(localStorage.getItem("hi"));
+        this.setState({chosen_savings_threshold: localStorage.getItem("hi")})
+    }
     setThreshold = (e) => {
         this.setState({savingsColor: "white"});
         this.setState({chosen_savings_threshold: e.target.value});
@@ -32,17 +37,22 @@ export class ManagementPage extends Component{
     }
 
     route = () => {
-        this.setState({routeHome: true})
+        this.props.receiveTotal(this.state.total_wallet_amount);
+        this.props.receivePercentage(this.state.chosen_savings_threshold);
+        this.setState({routeHome: true});
     }
 
     render(){
+
+        localStorage.setItem("hi", this.state.chosen_savings_threshold)
+
         if (this.state.routeHome) {
             return <Redirect push to="/" />;
         }
 
         return(
-        <div>
-            <div className = "doneButton" onClick = {this.route}>DONE</div>
+        <div className = "Page">
+            <div className = "doneButton" onClick = {this.route}>≡</div>
             <div className = "yourSavings">Your Savings</div>
             <div>
                 <div class="big">
@@ -52,7 +62,7 @@ export class ManagementPage extends Component{
             <form>
                 <div class="form-group">
                     <label for="formControlRange">Enter Savings Percentage: {this.state.chosen_savings_threshold} %</label>
-                    <input onChange = {this.setThreshold} type="range" defaultValue = "0" max = "100" class="form-control-range" id="formControlRange"></input>   
+                    <input onChange = {this.setThreshold} type="range" defaultValue = {this.state.chosen_savings_threshold} max = "100" class="form-control-range" id="formControlRange"></input>   
                 </div>
 
                 <div class="TransactionTable">
