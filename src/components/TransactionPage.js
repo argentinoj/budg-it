@@ -4,43 +4,60 @@ import './TransactionPage.css';
 export class TransactionPage extends Component {
     constructor() {
         super();
-        this.state = ({
-            value: 0,
-            positive = false,
-            name: "Transaction",
-            spontaneous: true
-        });
+        this.state = ({value: 0, isPositive: false, name: "Transaction", spontaneous: true});
     }
 
-    setPositive = (positive) => {
-        state.positive = positive
+    setPositive = () => {
+        this.setState({positive: true})
+    }
+
+    setNegative = () => {
+        this.setState({positive: false})
     }
 
     render() {
         return (
-            <div className="page">
-                <div className="header">
+            <div id="page">
+                <div id="header">
                     ∇
                     <br/>
                     ${this.state.name}
                 </div>
-                <div className="transaction">
+                <div className="input-group" id="transaction">
                     <form>
-                        <button type="button" onClick ={this.setPositive(true)}>+</button>
-                        <button type="button" onClick={this.setPositive(false)}>-</button>
+                        <button type="button" className="btn btn-success" onClick ={this.setPositive}>+</button>
+                        <button type="button" className="btn btn-danger" onClick={this.setNegative}>-</button>
 
-                        <input type="number" defaultValue="0"></input>
+                        <span className="input-group-text" id="money" defaultValue="0" type="number">$</span>
                     </form>
 
                 </div>
-                <div className="regularity">
+                <div id="regularity">
 
-                    <button type="button">
-                        Spontaneous
-                    </button>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label className="btn btn-primary active">
+                            <input
+                                type="radio"
+                                name="repeated"
+                                id="spontaneous"
+                                autoComplete="off"
+                                checked={this.state.spontaneous}/>
+                            Spontaneous
+                        </label>
+
+                        <label className="btn btn-primary">
+                            <input
+                                type="radio"
+                                name="repeated"
+                                id="regular"
+                                autoComplete="off"
+                                checked={!this.state.spontaneous}/>
+                            Regular
+                        </label>
+                    </div>
                 </div>
 
-                <button type="button">
+                <button type="button" className="btn btn-primary">
                     Confirm
                 </button>
             </div>

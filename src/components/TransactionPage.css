@@ -1,17 +1,26 @@
+div{
+    padding: 1px;
+}
+
 body{
     background-color: white;
 }
 
-.header{
+#header{
     background-color: rgb(24, 233, 24);
     color: white;
 }
 
-/* .transaction{
+#transaction{
+    display: inline;
+}
+
+#money{
+    display: inline;
 
 }
 
 
-.regularity{
+/* .regularity{
 
 } */
