@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
+import {ManagementPage} from './ManagementPage.js'
 import { Redirect } from "react-router";
-import {ManagementPage} from './ManagementPage';
 import './HomePage.css';
 
 export class HomePage extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
+        this.current_savings_percent = 20,
+        this.total_wallet_amount = 15000,
         this.state = ({
-            wallet: 15000,
+            wallet: ((100-this.current_savings_percent)/100 * this.total_wallet_amount),
             wallet_sign: "+",
             redirect: false,
         });
@@ -23,7 +25,7 @@ export class HomePage extends Component{
 
     placeHolder = () => {
         console.log("Will Route To Management Page");
-        this.props.setTotalAmount(this.state.wallet);
+        //this.props.setTotalAmount(this.state.wallet);
         this.setState({redirect: true})
     }
 
