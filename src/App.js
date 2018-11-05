@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {ManagementPage} from './components/ManagementPage';
 import {HomePage} from './components/HomePage';
-
+import {TransactionPage} from './components/TransactionPage'
 import logo from './logo.svg';
 import './App.css';
 
