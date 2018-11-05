@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './TransactionTracking.css';
-
+/*
 export class TransactionTracking extends Component{
     constructor(props){
         super(props);
@@ -26,7 +26,7 @@ export class TransactionTracking extends Component{
         );
     }
 
-};
+};*/
 
 export class TransactionItem{
     constructor(_amount, _title, _spontaneous, _id){
