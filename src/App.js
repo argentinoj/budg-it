@@ -13,21 +13,31 @@ class App extends Component {
     this.state = ({
       total_from_managment: 15000,
       percentage_from_managment: 0,
+      transaction: [],
     });
     this.receiveTotal = this.receiveTotal.bind(this);
     this.receivePercentage = this.receivePercentage.bind(this);
+    this.receiveTransaction = this.receiveTransaction.bind(this);
   }
 
 
   receiveTotal(total){
-    console.log("Total Received" + total)
+    console.log("Total Received " + total)
     this.setState({total_from_managment: total})
   }
 
   receivePercentage(percentage){
-    console.log("Percent Received" + percentage)
+    console.log("Percent Received " + percentage)
 
     this.setState({percentage_from_managment: percentage})
+  }
+
+  receiveTransaction(transaction1){
+    console.log("Transaction Received " + transaction1)
+    console.log(transaction1)
+    var temp = []
+    temp.push(transaction1)
+    this.setState({transaction: temp});
   }
 
 
@@ -44,12 +54,16 @@ class App extends Component {
           <Route path = "/mp" 
             render = {(props) => <ManagementPage 
               receiveTotal = {this.receiveTotal} 
-              receivePercentage = {this.receivePercentage}/>}
+              receivePercentage = {this.receivePercentage}
+              transactions = {this.state.transaction}
+              />}
 
             />
 
           <Route path = "/t"
-            render = {(props) => <TransactionPage/>}/>
+            render = {(props) => <TransactionPage
+            receiveTransaction = {this.receiveTransaction}/>}
+            />
         </Switch>
       </Router>
     );
