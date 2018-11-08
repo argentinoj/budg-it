@@ -1,21 +1,25 @@
 #page{
     padding: 1px;
     /* width: 100%; */
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+    margin: 1%;
 }
 #header{
     color: black;
     font-size: 200%;
+    margin: 1%;
 }
 
 #transaction{ 
+    margin: 1%;
     white-space: nowrap;
     overflow-x: auto;
-    display: inline-block
+    text-align: center;
+
 }
 
 .form-control{
+    margin: 1%;
     width: 100%;
 }
 

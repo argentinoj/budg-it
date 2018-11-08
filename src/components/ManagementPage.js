@@ -13,19 +13,32 @@ export class ManagementPage extends Component{
             total_wallet_amount: 15000,
             savingsColor: "white",
             routeHome: false,
-            })
-            this.transactionList = [new TransactionItem(-30,"Food",true,0),
-                                    new TransactionItem(400, "Paycheck", false, 1),
-            ]; //[new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
+            transactionList: [],
+
+            }) //[new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
 
 
             this.addTransaction = this.addTransaction.bind(this);
+            this.updateTransactionList = this.updateTransactionList.bind(this);
     }
 
     componentWillMount(){
-        console.log(localStorage.getItem("hi"));
+        this.updateTransactionList();
+        //console.log(localStorage.getItem("hi"));
         this.setState({chosen_savings_threshold: localStorage.getItem("hi")})
     }
+
+    updateTransactionList = () => {
+        //this.setState({transactionList: this.props.transactions});
+        console.log(this.props.transactions);
+        var temp = this.state.transactionList;
+        for(var i = 0; i < this.props.transactions.length; ++i){
+            temp.push(this.props.transactions[i]);
+        }
+
+        this.setState({transactionList: temp});
+    }
+
     setThreshold = (e) => {
         this.setState({savingsColor: "white"});
         this.setState({chosen_savings_threshold: e.target.value});
@@ -33,7 +46,7 @@ export class ManagementPage extends Component{
 
     addTransaction = (t) => {
         // takes in a transactionitem, and appends it to the transaction list
-        this.transactionList.push(t);
+        this.setState({transactionList: this.state.transactionList.push(t)});
     }
 
     route = () => {
@@ -67,11 +80,19 @@ export class ManagementPage extends Component{
 
                 <div class="TransactionTable">
                     <div align="left" style ={{color: "gray"}}>History:</div>
-                    <div align="left" style ={{color: "black"}}> {this.transactionList.map((trans) => <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "blue"}}>  
-                    {trans.state.title + " | " + 
-                        (trans.state.amount < 0 ? " - $" : " + $") + 
-                        String(Math.abs(trans.state.amount)) + " | " +
-                         (trans.state.spontaneous ? "Spontaneous" : "Periodic")} </li>)} </div>
+                    <div align="left" style ={{color: "black"}}> {
+                        this.state.transactionList.length > 0 ? (
+                        this.state.transactionList.map((trans) => 
+                            <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "blue"}}>  
+                                {trans.state.title + " | " + 
+                                (trans.state.amount < 0 ? " - $" : " + $") + 
+                                String(Math.abs(trans.state.amount)) + " | " +
+                                (trans.state.spontaneous ? "Regular" : "Spontaneous")} 
+                            </li>
+                            )
+                        ):(<div></div>)
+                        } 
+                    </div>
                 </div> 
             </form>
             
