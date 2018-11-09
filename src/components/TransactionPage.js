@@ -118,6 +118,30 @@ export class TransactionPage extends Component {
                 <button type="button" className="btn btn-primary" onClick = {this.routeManagement}>
                     Confirm
                 </button>
+
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#redAlert">
+                    Launch demo modal
+                </button>
+
+                <div className="modal fade" id="redAlert" tabindex="-1" role="dialog" aria-labelledby="redAlertLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="redAlertLabel">Warning</h5>
+                            </div>
+                            <div className="modal-body">
+                                <p>
+                                    This purchase exceeds your wallet's balance. 
+                                    <br/>
+                                    Money will be drawn from your savings.
+                                </p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
