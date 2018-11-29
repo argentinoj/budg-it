@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import ReactModal from 'react-modal';
 import './TransactionPage.css';
-import './Modal.css';
 import {TransactionItem} from './TransactionTracking';
 import { Redirect } from "react-router";
 import swal from 'sweetalert2'
