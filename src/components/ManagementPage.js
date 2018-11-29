@@ -70,24 +70,52 @@ export class ManagementPage extends Component{
 
         if (this.state.chosen_savings_threshold > 75) {
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
-        } 
+        }
+
+        if(this.state.transactionList.length == 0){
+            suggestion = "Try making some transactions to help us make suggestions."
+        }
         else {
             var maxTransaction = 0;
             var maxTransactionIndex = 0;
 
             for(var i = 0; i < this.state.transactionList.length; i++){
                 if(Math.abs(this.state.transactionList[i].getAmount()) > maxTransaction){
-                    maxTransaction = this.state.transactionList[i].getAmount();
+                    maxTransaction = Math.abs(this.state.transactionList[i].getAmount());
                     maxTransactionIndex = i;
                 }
             }
-            if(maxTransaction > this.state.total_wallet_amount * 0.25){
-                suggestion = "You spent $" + maxTransaction + " on " + this.state.transactionList[maxTransactionIndex].getTitle();
+            if(maxTransaction >= 5000){
+                suggestion = "You spent $" + maxTransaction + " on " + this.state.transactionList[maxTransactionIndex].getTitle() + 
+                ". Consider making smaller purchases in the future.";
             }
             else{
-                suggestion = "well okay I guess";
-            }
-            
+                var countObj = {};
+                for(var i = 0; i < this.state.transactionList.length; i++){
+                    if(this.state.transactionList[i].getAmount() < 0){
+                        if(this.state.transactionList[i].getTitle().toLowerCase() in countObj){
+                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = countObj[this.state.transactionList[i].getTitle().toLowerCase()] + Math.abs(this.state.transactionList[i].getAmount());
+                        }else{
+                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = Math.abs(this.state.transactionList[i].getAmount());
+                        }
+                    }
+                }
+                console.log(countObj);
+                var maxTalliedTotal = 0;
+                var maxTalliedName = "";
+                for(var i = 0; i < this.state.transactionList.length; i++){
+                    if(countObj[this.state.transactionList[i].getTitle().toLowerCase()] > maxTalliedTotal){
+                        maxTalliedTotal = countObj[this.state.transactionList[i].getTitle().toLowerCase()];
+                        maxTalliedName = this.state.transactionList[i].getTitle().toLowerCase();
+                    }
+                }
+                console.log(maxTalliedTotal);
+                console.log(maxTalliedName);
+                if(maxTalliedTotal >= 5000){
+                    suggestion = "You spent " + maxTalliedTotal + " on multiple purchases of "+ maxTalliedName + ". Consider buying "+ 
+                    "that item in less quantities.";
+                }
+            } 
         }
         swal({
             title: "You Should Try",

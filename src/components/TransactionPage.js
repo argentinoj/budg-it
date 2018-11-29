@@ -51,14 +51,13 @@ export class TransactionPage extends Component {
     }
 
     sendTransaction = () => {   
-        console.log(this.state)
         var temp = 0;
         if(this.state.positive){
             temp = this.state.value;
         }else{
             temp = -1 *  this.state.value;
         }
-        this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.positive, 0));
+        this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.spontaneous, 0));
     }
 
     routeManagement = () => {
@@ -72,11 +71,12 @@ export class TransactionPage extends Component {
         }
         this.sendTransaction();
         this.setState({route_Management: true});
+        
     }
 
     render() {
         if (this.state.route_Management) {
-            return <Redirect push to="/" />;
+            return <Redirect push to="/mp" />;
         }
         return (
             <div id="page">
