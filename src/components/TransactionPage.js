@@ -50,16 +50,7 @@ export class TransactionPage extends Component {
         this.setState({spontaneous: false})
     }
 
-    sendTransaction = () => {
-        if (!this.state.positive && this.state.wallet < this.state.value){
-            swal({
-                title: "Warning!",
-                text: "You've used up all the money in your wallet.\nThis purchase will take money from your savings.",
-                type: 'warning',
-                confirmButtonText: "Confirm"
-            })
-        }
-        
+    sendTransaction = () => {   
         console.log(this.state)
         var temp = 0;
         if(this.state.positive){
@@ -71,6 +62,14 @@ export class TransactionPage extends Component {
     }
 
     routeManagement = () => {
+        if (!this.state.positive && this.state.wallet < this.state.value){
+            swal({
+                title: "Warning!",
+                text: "You've used up all the money in your wallet.\nThis purchase will take money from your savings.",
+                type: 'warning',
+                confirmButtonText: "Confirm"
+            })
+        }
         this.sendTransaction();
         this.setState({route_Management: true});
     }
