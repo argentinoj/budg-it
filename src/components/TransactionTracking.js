@@ -35,7 +35,7 @@ export class TransactionItem{
             amount: _amount,
             title: _title,
             spontaneous: _spontaneous,
-            id: _id
+            id: _id,
         });
 
     }

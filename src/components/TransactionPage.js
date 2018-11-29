@@ -18,6 +18,10 @@ export class TransactionPage extends Component {
         this.updateWallet = this.updateWallet.bind(this);
     }
 
+    componentWillMount(){
+        this.updateWallet();
+    }
+
     updateWallet(){
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
@@ -50,7 +54,6 @@ export class TransactionPage extends Component {
     }
 
     sendTransaction = () => {   
-        console.log(this.state)
         var temp = 0;
         if(this.state.positive){
             temp = this.state.value;
@@ -71,6 +74,7 @@ export class TransactionPage extends Component {
         }
         this.sendTransaction();
         this.setState({route_Management: true});
+        
     }
 
     render() {
@@ -96,7 +100,7 @@ export class TransactionPage extends Component {
                                 aria-label="Amount (to the nearest dollar)" 
                                 value={this.state.value}/>
                         </span>
-                        
+   
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
                         <button type='button' 
                                 className="btn btn-success active" 
@@ -146,7 +150,6 @@ export class TransactionPage extends Component {
                                 Regular
                             </button>
                         </div>
-
                     </form>
                 </div>
 

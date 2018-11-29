@@ -70,44 +70,75 @@ export class ManagementPage extends Component{
 
         if (this.state.chosen_savings_threshold > 75) {
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
-        } 
+        }
+
+        else if(this.state.transactionList.length == 0){
+            suggestion = "Try making some transactions to help us make suggestions."
+        }
         else {
             var maxTransaction = 0;
             var maxTransactionIndex = 0;
             var transactions = this.state.transactionList;
 
-            for(var i = 0; i < transactions.length; i++){
-                if(Math.abs(transactions[i].getAmount()) > maxTransaction){
-                    maxTransaction = transactions[i].getAmount();
+            for(var i = 0; i < this.state.transactionList.length; i++){
+                if(Math.abs(this.state.transactionList[i].getAmount()) > maxTransaction){
+                    maxTransaction = Math.abs(this.state.transactionList[i].getAmount());
                     maxTransactionIndex = i;
                 }
             }
-            if(Math.abs(maxTransaction) > 9999999999999999999999){
-                suggestion = "You spent $" + maxTransaction + " on " + transactions[maxTransactionIndex].getTitle() + ", that's a lot!";
+            if(maxTransaction >= 5000){
+                suggestion = "You spent $" + maxTransaction + " on " + this.state.transactionList[maxTransactionIndex].getTitle() + 
+                ". Consider making smaller purchases in the future.";
             }
             else{
-
-                var regularIncome = 0;
-                var regularPurchase = 0;
-                var spontaneousPurchase = 0;
-                
-                for(var i = 0; i < transactions.length; i++){
-                    if(!transactions[i].getSpontaneous()){
-                        if(transactions[i].getAmount() > 0)
-                            regularIncome += transactions[i].getAmount();
-                        else regularPurchase += transactions[i].getAmount();
+                var countObj = {};
+                for(var i = 0; i < this.state.transactionList.length; i++){
+                    if(this.state.transactionList[i].getAmount() < 0){
+                        if(this.state.transactionList[i].getTitle().toLowerCase() in countObj){
+                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = countObj[this.state.transactionList[i].getTitle().toLowerCase()] + Math.abs(this.state.transactionList[i].getAmount());
+                        }else{
+                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = Math.abs(this.state.transactionList[i].getAmount());
+                        }
                     }
-                    else if (transactions[i].getAmount() < 0) 
-                        spontaneousPurchase += transactions[i].getAmount();
                 }
+                console.log(countObj);
+                var maxTalliedTotal = 0;
+                var maxTalliedName = "";
+                for(var i = 0; i < this.state.transactionList.length; i++){
+                    if(countObj[this.state.transactionList[i].getTitle().toLowerCase()] > maxTalliedTotal){
+                        maxTalliedTotal = countObj[this.state.transactionList[i].getTitle().toLowerCase()];
+                        maxTalliedName = this.state.transactionList[i].getTitle().toLowerCase();
+                    }
+                }
+                console.log(maxTalliedTotal);
+                console.log(maxTalliedName);
+                if(maxTalliedTotal >= 5000){
+                    suggestion = "You spent " + maxTalliedTotal + " on multiple purchases of "+ maxTalliedName + ". Consider buying "+ 
+                    "that item in less quantities.";
+                }
+                else{
+                  var regularIncome = 0;
+                  var regularPurchase = 0;
+                  var spontaneousPurchase = 0;
 
-                regularIncome = Math.abs(regularIncome);
-                regularPurchase = Math.abs(regularPurchase);
-                spontaneousPurchase = Math.abs(spontaneousPurchase);
+                  for(var i = 0; i < transactions.length; i++){
+                      if(!transactions[i].getSpontaneous()){
+                          if(transactions[i].getAmount() > 0)
+                              regularIncome += transactions[i].getAmount();
+                          else regularPurchase += transactions[i].getAmount();
+                      }
+                      else if (transactions[i].getAmount() < 0) 
+                          spontaneousPurchase += transactions[i].getAmount();
+                  }
 
-                if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
-                else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
-            }
+                  regularIncome = Math.abs(regularIncome);
+                  regularPurchase = Math.abs(regularPurchase);
+                  spontaneousPurchase = Math.abs(spontaneousPurchase);
+
+                  if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
+                  else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
+              }
+            } 
         }
 
         swal({
