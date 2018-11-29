@@ -71,7 +71,6 @@ export class ManagementPage extends Component{
         if (this.state.chosen_savings_threshold > 75) {
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
         }
-
         else if(this.state.transactionList.length == 0){
             suggestion = "Try making some transactions to help us make suggestions."
         }
@@ -80,34 +79,34 @@ export class ManagementPage extends Component{
             var maxTransactionIndex = 0;
             var transactions = this.state.transactionList;
 
-            for(var i = 0; i < this.state.transactionList.length; i++){
-                if(Math.abs(this.state.transactionList[i].getAmount()) > maxTransaction){
-                    maxTransaction = Math.abs(this.state.transactionList[i].getAmount());
+            for(var i = 0; i < transactions.length; i++){
+                if(Math.abs(transactions[i].getAmount()) > maxTransaction){
+                    maxTransaction = Math.abs(transactions[i].getAmount());
                     maxTransactionIndex = i;
                 }
             }
             if(maxTransaction >= 5000){
-                suggestion = "You spent $" + maxTransaction + " on " + this.state.transactionList[maxTransactionIndex].getTitle() + 
+                suggestion = "You spent $" + maxTransaction + " on " + transactions[maxTransactionIndex].getTitle() + 
                 ". Consider making smaller purchases in the future.";
             }
             else{
                 var countObj = {};
-                for(var i = 0; i < this.state.transactionList.length; i++){
-                    if(this.state.transactionList[i].getAmount() < 0){
-                        if(this.state.transactionList[i].getTitle().toLowerCase() in countObj){
-                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = countObj[this.state.transactionList[i].getTitle().toLowerCase()] + Math.abs(this.state.transactionList[i].getAmount());
+                for(var i = 0; i < transactions.length; i++){
+                    if(transactions[i].getAmount() < 0){
+                        if(transactions[i].getTitle().toLowerCase() in countObj){
+                            countObj[transactions[i].getTitle().toLowerCase()] = countObj[transactions[i].getTitle().toLowerCase()] + Math.abs(transactions[i].getAmount());
                         }else{
-                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = Math.abs(this.state.transactionList[i].getAmount());
+                            countObj[transactions[i].getTitle().toLowerCase()] = Math.abs(transactions[i].getAmount());
                         }
                     }
                 }
                 console.log(countObj);
                 var maxTalliedTotal = 0;
                 var maxTalliedName = "";
-                for(var i = 0; i < this.state.transactionList.length; i++){
-                    if(countObj[this.state.transactionList[i].getTitle().toLowerCase()] > maxTalliedTotal){
-                        maxTalliedTotal = countObj[this.state.transactionList[i].getTitle().toLowerCase()];
-                        maxTalliedName = this.state.transactionList[i].getTitle().toLowerCase();
+                for(var i = 0; i < transactions.length; i++){
+                    if(countObj[transactions[i].getTitle().toLowerCase()] > maxTalliedTotal){
+                        maxTalliedTotal = countObj[transactions[i].getTitle().toLowerCase()];
+                        maxTalliedName = transactions[i].getTitle().toLowerCase();
                     }
                 }
                 console.log(maxTalliedTotal);
@@ -117,27 +116,27 @@ export class ManagementPage extends Component{
                     "that item in less quantities.";
                 }
                 else{
-                  var regularIncome = 0;
-                  var regularPurchase = 0;
-                  var spontaneousPurchase = 0;
+                    var regularIncome = 0;
+                    var regularPurchase = 0;
+                    var spontaneousPurchase = 0;
 
-                  for(var i = 0; i < transactions.length; i++){
-                      if(!transactions[i].getSpontaneous()){
-                          if(transactions[i].getAmount() > 0)
-                              regularIncome += transactions[i].getAmount();
-                          else regularPurchase += transactions[i].getAmount();
-                      }
-                      else if (transactions[i].getAmount() < 0) 
-                          spontaneousPurchase += transactions[i].getAmount();
-                  }
+                    for(var i = 0; i < transactions.length; i++){
+                        if(!transactions[i].getSpontaneous()){
+                            if(transactions[i].getAmount() > 0)
+                                regularIncome += transactions[i].getAmount();
+                            else regularPurchase += transactions[i].getAmount();
+                        }
+                        else if (transactions[i].getAmount() < 0) 
+                            spontaneousPurchase += transactions[i].getAmount();
+                    }
 
-                  regularIncome = Math.abs(regularIncome);
-                  regularPurchase = Math.abs(regularPurchase);
-                  spontaneousPurchase = Math.abs(spontaneousPurchase);
+                    regularIncome = Math.abs(regularIncome);
+                    regularPurchase = Math.abs(regularPurchase);
+                    spontaneousPurchase = Math.abs(spontaneousPurchase);
 
-                  if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
-                  else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
-              }
+                    if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
+                    else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
+                }
             } 
         }
 
@@ -181,7 +180,7 @@ export class ManagementPage extends Component{
                     <div align="left" style ={{color: "black"}}> {
                         this.state.transactionList.length > 0 ? (
                         this.state.transactionList.map((trans) => 
-                            <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "blue"}}>  
+                            <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "green"}}>  
                                 {trans.state.title + " | " + 
                                 (trans.state.amount < 0 ? " - $" : " + $") + 
                                 String(Math.abs(trans.state.amount)) + " | " +

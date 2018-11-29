@@ -74,7 +74,6 @@ export class TransactionPage extends Component {
         }
         this.sendTransaction();
         this.setState({route_Management: true});
-        
     }
 
     render() {
@@ -154,7 +153,7 @@ export class TransactionPage extends Component {
                 </div>
 
                 <br/>
-                
+
                 <button type="button" className="btn btn-primary" onClick = {this.routeManagement}>
                     Confirm
                 </button>
