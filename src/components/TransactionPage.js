@@ -19,6 +19,10 @@ export class TransactionPage extends Component {
 
     }
 
+    componentWillMount(){
+        this.updateWallet();
+    }
+
     updateWallet(){
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
