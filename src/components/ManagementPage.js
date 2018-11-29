@@ -24,18 +24,21 @@ export class ManagementPage extends Component{
 
     componentWillMount(){
         this.updateTransactionList();
-        //console.log(localStorage.getItem("hi"));
         this.setState({chosen_savings_threshold: localStorage.getItem("hi")})
     }
 
     updateTransactionList = () => {
         //this.setState({transactionList: this.props.transactions});
+        console.log("mngmt")
         console.log(this.props.transactions);
         var temp = this.state.transactionList;
+        var tempw = this.state.total_wallet_amount;
         for(var i = 0; i < this.props.transactions.length; ++i){
             temp.push(this.props.transactions[i]);
+            tempw = tempw + Number(this.props.transactions[i].getAmount());
         }
 
+        this.setState({total_wallet_amount: tempw});
         this.setState({transactionList: temp});
     }
 
@@ -47,6 +50,10 @@ export class ManagementPage extends Component{
     addTransaction = (t) => {
         // takes in a transactionitem, and appends it to the transaction list
         this.setState({transactionList: this.state.transactionList.push(t)});
+    }
+
+    clearHistory = () => {
+        this.props.clearPurchaseHistory();
     }
 
     route = () => {
@@ -79,7 +86,8 @@ export class ManagementPage extends Component{
                 </div>
 
                 <div class="TransactionTable">
-                    <div align="left" style ={{color: "gray"}}>History:</div>
+                    <span align="left" style ={{color: "gray", marginRight: "10px"}}>History:</span>
+                    <span><button id = "clearButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
                     <div align="left" style ={{color: "black"}}> {
                         this.state.transactionList.length > 0 ? (
                         this.state.transactionList.map((trans) => 

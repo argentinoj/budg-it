@@ -4,6 +4,8 @@ import {ManagementPage} from './components/ManagementPage';
 import {HomePage} from './components/HomePage';
 import {TransactionPage} from './components/TransactionPage'
 import logo from './logo.svg';
+import { TransactionItem } from './components/TransactionTracking';
+
 import './App.css';
 
 class App extends Component {
@@ -18,30 +20,52 @@ class App extends Component {
     this.receiveTotal = this.receiveTotal.bind(this);
     this.receivePercentage = this.receivePercentage.bind(this);
     this.receiveTransaction = this.receiveTransaction.bind(this);
+    
+    
   }
 
-
+  componentWillMount(){
+    if(JSON.parse(localStorage.getItem("ls")) != null){
+      var simplify = JSON.parse(localStorage.getItem("ls"));
+      var tempStorage = []
+      for(var i = 0; i < simplify.length; i++){
+        var wrap = (simplify[i].state);
+        tempStorage.push(new TransactionItem(wrap.amount, wrap.title, wrap.spontaneous, wrap.id));
+      }
+      this.setState({transaction: tempStorage});
+    }
+  }
+  
   receiveTotal(total){
-    console.log("Total Received " + total)
+    //console.log("Total Received " + total)
     this.setState({total_from_managment: total})
   }
 
   receivePercentage(percentage){
-    console.log("Percent Received " + percentage)
+    //console.log("Percent Received " + percentage)
 
     this.setState({percentage_from_managment: percentage})
   }
 
   receiveTransaction(transaction1){
-    console.log("Transaction Received " + transaction1)
-    console.log(transaction1)
-    var temp = []
-    temp.push(transaction1)
+    //console.log("Transaction Received " + transaction1)
+    //console.log(transaction1)
+    var temp = this.state.transaction;
+    temp.push(transaction1);
+    
     this.setState({transaction: temp});
+
+    localStorage.setItem("ls", JSON.stringify(this.state.transaction)); 
+  }
+
+  resetPurchaseHistory(){
+    localStorage.setItem("ls",null);
+    this.setState({transaction: []});
   }
 
 
   render() {
+
     return (
       <Router>
         <Switch>
@@ -56,6 +80,7 @@ class App extends Component {
               receiveTotal = {this.receiveTotal} 
               receivePercentage = {this.receivePercentage}
               transactions = {this.state.transaction}
+              clearPurchaseHistory = {this.resetPurchaseHistory}
               />}
 
             />
