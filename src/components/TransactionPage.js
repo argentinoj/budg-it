@@ -16,7 +16,6 @@ export class TransactionPage extends Component {
             wallet: 0,
         });
         this.updateWallet = this.updateWallet.bind(this);
-
     }
 
     componentWillMount(){
@@ -85,52 +84,77 @@ export class TransactionPage extends Component {
         return (
             <div id="page">
                 <div id="header">
-                    <div>Transaction</div><input onChange = {this.setName} type = "text"></input>
+                    <input onChange = {this.setName} type = "text" defaultValue="Transaction"></input>
                 </div>
                 <div className="input-group row justify-content-md-center row" id="transaction">
                     <form className="form-inline">
+
                         <span className="input-group col col-9" id="money">
                             <span className="input-group-prepend">
                                 <span className="input-group-text">$</span>
                             </span>
-                            <input onChange = {this.setValue} type="number" className="form-control" aria-label="Amount (to the nearest dollar)" value={this.state.value}>
-                            </input>
+                            <input 
+                                onChange = {this.setValue} 
+                                type="number" 
+                                className="form-control"
+                                aria-label="Amount (to the nearest dollar)" 
+                                value={this.state.value}/>
                         </span>
-                        <div className="btn-group btn-group-toggle col col-3" data-toggle="buttons" id="sign">
-                            <button type = "button" className="btn btn-success" onClick={this.setPositive}>
+   
+                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                        <button type='button' 
+                                className="btn btn-success active" 
+                                name="sign" 
+                                id="positive" 
+                                autoComplete="off" 
+                                checked={this.state.positive} 
+                                onClick={this.setPositive}>
                                 +
                             </button>
 
-                            <button type = "button" className="btn btn-danger" onClick={this.setNegative}>   
+                            <button type='button' 
+                                className="btn btn-danger" 
+                                name="sign" 
+                                id="negative" 
+                                autoComplete="off" 
+                                checked={!this.state.positive} 
+                                onClick={this.setNegative}>
                                 -
                             </button>
                         </div>
                     </form>
-
                 </div>
-                <div id="regularity">
 
+                <div className="input-group row justify-content-md-center row" id="regularity">
+
+                    <form className="form-inline">
+                    
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        
-                            <button
-                                className="btn btn-outline-warning"
-                                type="button"
-                                name="repeated"
-                                id="spontaneous"
-                                onClick = {this.setSpontaneous}>
-                            Spontaneous</button>
+                            <button type='button' 
+                                className="btn btn-primary active" 
+                                name="regularity" 
+                                id="spontaneous" 
+                                autoComplete="off" 
+                                checked={this.state.spontaneous} 
+                                onClick={this.setSpontaneous}>
+                                Spontaneous
+                            </button>
 
-                        
-                            <button
-                                className="btn btn-outline-warning"
-                                type="button"
-                                name="repeated"
-                                id="regular"
-                                onClick = {this.setRegular}>
-                            Regular</button>
-                    </div>
+                            <button type='button' 
+                                className="btn btn-primary" 
+                                name="regularity" 
+                                id="regular" 
+                                autoComplete="off" 
+                                checked={!this.state.spontaneous} 
+                                onClick={this.setRegular}>
+                                Regular
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
+                <br/>
+                
                 <button type="button" className="btn btn-primary" onClick = {this.routeManagement}>
                     Confirm
                 </button>

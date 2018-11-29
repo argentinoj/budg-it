@@ -78,6 +78,7 @@ export class ManagementPage extends Component{
         else {
             var maxTransaction = 0;
             var maxTransactionIndex = 0;
+            var transactions = this.state.transactionList;
 
             for(var i = 0; i < this.state.transactionList.length; i++){
                 if(Math.abs(this.state.transactionList[i].getAmount()) > maxTransaction){
@@ -115,16 +116,37 @@ export class ManagementPage extends Component{
                     suggestion = "You spent " + maxTalliedTotal + " on multiple purchases of "+ maxTalliedName + ". Consider buying "+ 
                     "that item in less quantities.";
                 }
+                else{
+                  var regularIncome = 0;
+                  var regularPurchase = 0;
+                  var spontaneousPurchase = 0;
+
+                  for(var i = 0; i < transactions.length; i++){
+                      if(!transactions[i].getSpontaneous()){
+                          if(transactions[i].getAmount() > 0)
+                              regularIncome += transactions[i].getAmount();
+                          else regularPurchase += transactions[i].getAmount();
+                      }
+                      else if (transactions[i].getAmount() < 0) 
+                          spontaneousPurchase += transactions[i].getAmount();
+                  }
+
+                  regularIncome = Math.abs(regularIncome);
+                  regularPurchase = Math.abs(regularPurchase);
+                  spontaneousPurchase = Math.abs(spontaneousPurchase);
+
+                  if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
+                  else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
+              }
             } 
         }
+
         swal({
-            title: "You Should Try",
+            title: "Suggestion",
             text : suggestion,
             type: 'info',
             confirmButtonText: "Okay"
         })
-
-
     }
 
     render(){
@@ -153,7 +175,9 @@ export class ManagementPage extends Component{
                 <div class="TransactionTable">
                     <span align="left" style ={{color: "gray", marginRight: "10px"}}>History:</span>
                     <span><button id = "historyButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
-                    <span><button type="button" id = "historyButton" className="btn btn-outline-secondary" onClick = {this.makeSuggestions}>Suggestion</button></span>
+                    <span><button type="button" id = "historyButton" className="btn btn-outline-secondary" onClick = {this.makeSuggestions}>
+                        Suggestion
+                    </button></span>
                     <div align="left" style ={{color: "black"}}> {
                         this.state.transactionList.length > 0 ? (
                         this.state.transactionList.map((trans) => 
