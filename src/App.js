@@ -87,7 +87,9 @@ class App extends Component {
 
           <Route path = "/t"
             render = {(props) => <TransactionPage
-            receiveTransaction = {this.receiveTransaction}/>}
+            receiveTransaction = {this.receiveTransaction}
+            current_savings_percent = {this.state.percentage_from_managment}
+            total_wallet_amount = {this.state.total_from_managment}/>}
             />
         </Switch>
       </Router>

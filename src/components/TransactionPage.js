@@ -16,7 +16,10 @@ export class TransactionPage extends Component {
             wallet: 0,
         });
         this.updateWallet = this.updateWallet.bind(this);
+    }
 
+    componentWillMount(){
+        this.updateWallet();
     }
 
     updateWallet(){
@@ -51,14 +54,13 @@ export class TransactionPage extends Component {
     }
 
     sendTransaction = () => {   
-        console.log(this.state)
         var temp = 0;
         if(this.state.positive){
             temp = this.state.value;
         }else{
             temp = -1 *  this.state.value;
         }
-        this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.positive, 0));
+        this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.spontaneous, 0));
     }
 
     routeManagement = () => {
@@ -76,62 +78,81 @@ export class TransactionPage extends Component {
 
     render() {
         if (this.state.route_Management) {
-            return <Redirect push to="/" />;
+            return <Redirect push to="/mp" />;
         }
         return (
             <div id="page">
                 <div id="header">
-                    <div>Transaction</div><input onChange = {this.setName} type = "text"></input>
+                    <input onChange = {this.setName} type = "text" defaultValue="Transaction"></input>
                 </div>
                 <div className="input-group row justify-content-md-center row" id="transaction">
                     <form className="form-inline">
+
                         <span className="input-group col col-9" id="money">
                             <span className="input-group-prepend">
                                 <span className="input-group-text">$</span>
                             </span>
-                            <input onChange = {this.setValue} type="number" className="form-control" aria-label="Amount (to the nearest dollar)" value={this.state.value}>
-                            </input>
+                            <input 
+                                onChange = {this.setValue} 
+                                type="number" 
+                                className="form-control"
+                                aria-label="Amount (to the nearest dollar)" 
+                                value={this.state.value}/>
                         </span>
-                        <div className="btn-group btn-group-toggle col col-3" data-toggle="buttons" id="sign">
-                            <label className="btn btn-success active" onClick={this.setPositive}>
+   
+                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                        <button type='button' 
+                                className="btn btn-success active" 
+                                name="sign" 
+                                id="positive" 
+                                autoComplete="off" 
+                                checked={this.state.positive} 
+                                onClick={this.setPositive}>
                                 +
-                            </label>
+                            </button>
 
-                            <label className="btn btn-danger" onClick={this.setNegative}>   
+                            <button type='button' 
+                                className="btn btn-danger" 
+                                name="sign" 
+                                id="negative" 
+                                autoComplete="off" 
+                                checked={!this.state.positive} 
+                                onClick={this.setNegative}>
                                 -
-                            </label>
+                            </button>
                         </div>
                     </form>
-
                 </div>
-                <div id="regularity">
 
+                <div className="input-group row justify-content-md-center row" id="regularity">
+
+                    <form className="form-inline">
+                    
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label className="btn btn-primary active">
-                            <input
-                                type="radio"
-                                name="repeated"
-                                id="spontaneous"
-                                autoComplete="off"
-                                onChange={this.setPositive}
-                                checked = {this.state.spontaneous}
-                                onClick = {this.setSpontaneous}/>
-                            Spontaneous
-                        </label>
+                            <button type='button' 
+                                className="btn btn-primary active" 
+                                name="regularity" 
+                                id="spontaneous" 
+                                autoComplete="off" 
+                                checked={this.state.spontaneous} 
+                                onClick={this.setSpontaneous}>
+                                Spontaneous
+                            </button>
 
-                        <label className="btn btn-primary">
-                            <input
-                                type="radio"
-                                name="repeated"
-                                id="regular"
-                                autoComplete="off"
-                                onChange={this.setNegative}
-                                checked={!this.state.spontaneous}
-                                onClick = {this.setRegular}/>
-                            Regular
-                        </label>
-                    </div>
+                            <button type='button' 
+                                className="btn btn-primary" 
+                                name="regularity" 
+                                id="regular" 
+                                autoComplete="off" 
+                                checked={!this.state.spontaneous} 
+                                onClick={this.setRegular}>
+                                Regular
+                            </button>
+                        </div>
+                    </form>
                 </div>
+
+                <br/>
 
                 <button type="button" className="btn btn-primary" onClick = {this.routeManagement}>
                     Confirm
