@@ -24,18 +24,21 @@ export class ManagementPage extends Component{
 
     componentWillMount(){
         this.updateTransactionList();
-        //console.log(localStorage.getItem("hi"));
         this.setState({chosen_savings_threshold: localStorage.getItem("hi")})
     }
 
     updateTransactionList = () => {
         //this.setState({transactionList: this.props.transactions});
+        console.log("mngmt")
         console.log(this.props.transactions);
         var temp = this.state.transactionList;
+        var tempw = this.state.total_wallet_amount;
         for(var i = 0; i < this.props.transactions.length; ++i){
             temp.push(this.props.transactions[i]);
+            tempw = tempw + this.props.transactions[i].getAmount();
         }
 
+        this.setState({total_wallet_amount: tempw});
         this.setState({transactionList: temp});
     }
 

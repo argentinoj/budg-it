@@ -4,6 +4,8 @@ import {ManagementPage} from './components/ManagementPage';
 import {HomePage} from './components/HomePage';
 import {TransactionPage} from './components/TransactionPage'
 import logo from './logo.svg';
+import { TransactionItem } from './components/TransactionTracking';
+
 import './App.css';
 
 class App extends Component {
@@ -22,21 +24,22 @@ class App extends Component {
 
 
   receiveTotal(total){
-    console.log("Total Received " + total)
+    //console.log("Total Received " + total)
     this.setState({total_from_managment: total})
   }
 
   receivePercentage(percentage){
-    console.log("Percent Received " + percentage)
+    //console.log("Percent Received " + percentage)
 
     this.setState({percentage_from_managment: percentage})
   }
 
   receiveTransaction(transaction1){
-    console.log("Transaction Received " + transaction1)
-    console.log(transaction1)
-    var temp = []
-    temp.push(transaction1)
+    //console.log("Transaction Received " + transaction1)
+    //console.log(transaction1)
+    var temp = this.state.transaction;
+    temp.push(transaction1);
+    
     this.setState({transaction: temp});
   }
 

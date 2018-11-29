@@ -37,7 +37,11 @@ export class TransactionItem{
             spontaneous: _spontaneous,
             id: _id
         });
-        
+
+    }
+    
+    getAmount(){
+        return this.state.amount;
     }
 
 
