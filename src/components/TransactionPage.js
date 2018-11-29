@@ -19,6 +19,10 @@ export class TransactionPage extends Component {
 
     }
 
+    componentWillMount(){
+        this.updateWallet();
+    }
+
     updateWallet(){
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
@@ -51,14 +55,13 @@ export class TransactionPage extends Component {
     }
 
     sendTransaction = () => {   
-        console.log(this.state)
         var temp = 0;
         if(this.state.positive){
             temp = this.state.value;
         }else{
             temp = -1 *  this.state.value;
         }
-        this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.positive, 0));
+        this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.spontaneous, 0));
     }
 
     routeManagement = () => {
@@ -72,11 +75,12 @@ export class TransactionPage extends Component {
         }
         this.sendTransaction();
         this.setState({route_Management: true});
+        
     }
 
     render() {
         if (this.state.route_Management) {
-            return <Redirect push to="/" />;
+            return <Redirect push to="/mp" />;
         }
         return (
             <div id="page">
@@ -93,13 +97,13 @@ export class TransactionPage extends Component {
                             </input>
                         </span>
                         <div className="btn-group btn-group-toggle col col-3" data-toggle="buttons" id="sign">
-                            <label className="btn btn-success active" onClick={this.setPositive}>
+                            <button type = "button" className="btn btn-success" onClick={this.setPositive}>
                                 +
-                            </label>
+                            </button>
 
-                            <label className="btn btn-danger" onClick={this.setNegative}>   
+                            <button type = "button" className="btn btn-danger" onClick={this.setNegative}>   
                                 -
-                            </label>
+                            </button>
                         </div>
                     </form>
 
@@ -107,29 +111,23 @@ export class TransactionPage extends Component {
                 <div id="regularity">
 
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label className="btn btn-primary active">
-                            <input
-                                type="radio"
+                        
+                            <button
+                                className="btn btn-outline-warning"
+                                type="button"
                                 name="repeated"
                                 id="spontaneous"
-                                autoComplete="off"
-                                onChange={this.setPositive}
-                                checked = {this.state.spontaneous}
-                                onClick = {this.setSpontaneous}/>
-                            Spontaneous
-                        </label>
+                                onClick = {this.setSpontaneous}>
+                            Spontaneous</button>
 
-                        <label className="btn btn-primary">
-                            <input
-                                type="radio"
+                        
+                            <button
+                                className="btn btn-outline-warning"
+                                type="button"
                                 name="repeated"
                                 id="regular"
-                                autoComplete="off"
-                                onChange={this.setNegative}
-                                checked={!this.state.spontaneous}
-                                onClick = {this.setRegular}/>
-                            Regular
-                        </label>
+                                onClick = {this.setRegular}>
+                            Regular</button>
                     </div>
                 </div>
 

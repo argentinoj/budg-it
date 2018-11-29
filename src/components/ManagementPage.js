@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import './radial.js';
 import './radial.css'
 import './ManagementPage.css';
+import swal from 'sweetalert2'
 import { TransactionItem } from './TransactionTracking';
 
 export class ManagementPage extends Component{
@@ -62,6 +63,70 @@ export class ManagementPage extends Component{
         this.setState({routeHome: true});
     }
 
+
+
+    makeSuggestions = () => {
+        var suggestion = "So far so good!"
+
+        if (this.state.chosen_savings_threshold > 75) {
+            suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
+        }
+
+        else if(this.state.transactionList.length == 0){
+            suggestion = "Try making some transactions to help us make suggestions."
+        }
+        else {
+            var maxTransaction = 0;
+            var maxTransactionIndex = 0;
+
+            for(var i = 0; i < this.state.transactionList.length; i++){
+                if(Math.abs(this.state.transactionList[i].getAmount()) > maxTransaction){
+                    maxTransaction = Math.abs(this.state.transactionList[i].getAmount());
+                    maxTransactionIndex = i;
+                }
+            }
+            if(maxTransaction >= 5000){
+                suggestion = "You spent $" + maxTransaction + " on " + this.state.transactionList[maxTransactionIndex].getTitle() + 
+                ". Consider making smaller purchases in the future.";
+            }
+            else{
+                var countObj = {};
+                for(var i = 0; i < this.state.transactionList.length; i++){
+                    if(this.state.transactionList[i].getAmount() < 0){
+                        if(this.state.transactionList[i].getTitle().toLowerCase() in countObj){
+                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = countObj[this.state.transactionList[i].getTitle().toLowerCase()] + Math.abs(this.state.transactionList[i].getAmount());
+                        }else{
+                            countObj[this.state.transactionList[i].getTitle().toLowerCase()] = Math.abs(this.state.transactionList[i].getAmount());
+                        }
+                    }
+                }
+                console.log(countObj);
+                var maxTalliedTotal = 0;
+                var maxTalliedName = "";
+                for(var i = 0; i < this.state.transactionList.length; i++){
+                    if(countObj[this.state.transactionList[i].getTitle().toLowerCase()] > maxTalliedTotal){
+                        maxTalliedTotal = countObj[this.state.transactionList[i].getTitle().toLowerCase()];
+                        maxTalliedName = this.state.transactionList[i].getTitle().toLowerCase();
+                    }
+                }
+                console.log(maxTalliedTotal);
+                console.log(maxTalliedName);
+                if(maxTalliedTotal >= 5000){
+                    suggestion = "You spent " + maxTalliedTotal + " on multiple purchases of "+ maxTalliedName + ". Consider buying "+ 
+                    "that item in less quantities.";
+                }
+            } 
+        }
+        swal({
+            title: "You Should Try",
+            text : suggestion,
+            type: 'info',
+            confirmButtonText: "Okay"
+        })
+
+
+    }
+
     render(){
 
         localStorage.setItem("hi", this.state.chosen_savings_threshold)
@@ -87,7 +152,8 @@ export class ManagementPage extends Component{
 
                 <div class="TransactionTable">
                     <span align="left" style ={{color: "gray", marginRight: "10px"}}>History:</span>
-                    <span><button id = "clearButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
+                    <span><button id = "historyButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
+                    <span><button type="button" id = "historyButton" className="btn btn-outline-secondary" onClick = {this.makeSuggestions}>Suggestion</button></span>
                     <div align="left" style ={{color: "black"}}> {
                         this.state.transactionList.length > 0 ? (
                         this.state.transactionList.map((trans) => 
@@ -95,7 +161,7 @@ export class ManagementPage extends Component{
                                 {trans.state.title + " | " + 
                                 (trans.state.amount < 0 ? " - $" : " + $") + 
                                 String(Math.abs(trans.state.amount)) + " | " +
-                                (trans.state.spontaneous ? "Regular" : "Spontaneous")} 
+                                (trans.state.spontaneous ? "Spontaneous" : "Regular")} 
                             </li>
                             )
                         ):(<div></div>)

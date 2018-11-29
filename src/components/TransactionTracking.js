@@ -35,7 +35,7 @@ export class TransactionItem{
             amount: _amount,
             title: _title,
             spontaneous: _spontaneous,
-            id: _id
+            id: _id,
         });
 
     }
@@ -44,7 +44,11 @@ export class TransactionItem{
         return this.state.amount;
     }
 
+    getTitle(){
+        return this.state.title;
+    }
 
-
-
+    getSpontaneous(){
+        return this.state.spontaneous;
+    }
 };
