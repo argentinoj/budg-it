@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import './radial.js';
 import './radial.css'
 import './ManagementPage.css';
+import swal from 'sweetalert2'
 import { TransactionItem } from './TransactionTracking';
 
 export class ManagementPage extends Component{
@@ -62,6 +63,42 @@ export class ManagementPage extends Component{
         this.setState({routeHome: true});
     }
 
+
+
+    makeSuggestions = () => {
+        var suggestion = "So far so good!"
+
+        if (this.state.chosen_savings_threshold > 75) {
+            suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
+        } 
+        else {
+            var maxTransaction = 0;
+            var maxTransactionIndex = 0;
+
+            for(var i = 0; i < this.state.transactionList.length; i++){
+                if(Math.abs(this.state.transactionList[i].getAmount()) > maxTransaction){
+                    maxTransaction = this.state.transactionList[i].getAmount();
+                    maxTransactionIndex = i;
+                }
+            }
+            if(maxTransaction > this.state.total_wallet_amount * 0.25){
+                suggestion = "You spent $" + maxTransaction + " on " + this.state.transactionList[maxTransactionIndex].getTitle();
+            }
+            else{
+                suggestion = "well okay I guess";
+            }
+            
+        }
+        swal({
+            title: "You Should Try",
+            text : suggestion,
+            type: 'info',
+            confirmButtonText: "Okay"
+        })
+
+
+    }
+
     render(){
 
         localStorage.setItem("hi", this.state.chosen_savings_threshold)
@@ -87,7 +124,8 @@ export class ManagementPage extends Component{
 
                 <div class="TransactionTable">
                     <span align="left" style ={{color: "gray", marginRight: "10px"}}>History:</span>
-                    <span><button id = "clearButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
+                    <span><button id = "historyButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
+                    <span><button type="button" id = "historyButton" className="btn btn-outline-secondary" onClick = {this.makeSuggestions}>Suggestion</button></span>
                     <div align="left" style ={{color: "black"}}> {
                         this.state.transactionList.length > 0 ? (
                         this.state.transactionList.map((trans) => 
