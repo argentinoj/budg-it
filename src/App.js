@@ -20,9 +20,22 @@ class App extends Component {
     this.receiveTotal = this.receiveTotal.bind(this);
     this.receivePercentage = this.receivePercentage.bind(this);
     this.receiveTransaction = this.receiveTransaction.bind(this);
+    
+    
   }
 
-
+  componentWillMount(){
+    if(JSON.parse(localStorage.getItem("ls")) != null){
+      var simplify = JSON.parse(localStorage.getItem("ls"));
+      var tempStorage = []
+      for(var i = 0; i < simplify.length; i++){
+        var wrap = (simplify[i].state);
+        tempStorage.push(new TransactionItem(wrap.amount, wrap.title, wrap.spontaneous, wrap.id));
+      }
+      this.setState({transaction: tempStorage});
+    }
+  }
+  
   receiveTotal(total){
     //console.log("Total Received " + total)
     this.setState({total_from_managment: total})
@@ -41,10 +54,18 @@ class App extends Component {
     temp.push(transaction1);
     
     this.setState({transaction: temp});
+
+    localStorage.setItem("ls", JSON.stringify(this.state.transaction)); 
+  }
+
+  resetPurchaseHistory(){
+    localStorage.setItem("ls",null);
+    this.setState({transaction: []});
   }
 
 
   render() {
+
     return (
       <Router>
         <Switch>
@@ -59,6 +80,7 @@ class App extends Component {
               receiveTotal = {this.receiveTotal} 
               receivePercentage = {this.receivePercentage}
               transactions = {this.state.transaction}
+              clearPurchaseHistory = {this.resetPurchaseHistory}
               />}
 
             />
