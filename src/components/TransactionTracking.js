@@ -47,4 +47,8 @@ export class TransactionItem{
     getTitle(){
         return this.state.title;
     }
+
+    getSpontaneous(){
+        return this.state.spontaneous;
+    }
 };
