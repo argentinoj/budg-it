@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import ReactModal from 'react-modal';
 import './TransactionPage.css';
+import './Modal.css';
 import {TransactionItem} from './TransactionTracking';
 import { Redirect } from "react-router";
+import swal from 'sweetalert2'
 
 export class TransactionPage extends Component {
     constructor() {
@@ -12,7 +15,14 @@ export class TransactionPage extends Component {
             name: "Transaction", 
             spontaneous: true,
             route_management: false,
+            wallet: 0,
         });
+        this.updateWallet = this.updateWallet.bind(this);
+
+    }
+
+    updateWallet(){
+        this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
 
     setPositive = () => {
@@ -43,12 +53,21 @@ export class TransactionPage extends Component {
     }
 
     sendTransaction = () => {
+        if (!this.state.positive && this.state.wallet < this.state.value){
+            swal({
+                title: "Warning!",
+                text: "You've used up all the money in your wallet.\nThis purchase will take money from your savings.",
+                type: 'warning',
+                confirmButtonText: "Confirm"
+            })
+        }
+        
         console.log(this.state)
         var temp = 0;
         if(this.state.positive){
             temp = this.state.value;
         }else{
-            temp = 0 - this.state.value;
+            temp = -1 *  this.state.value;
         }
         this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.positive, 0));
     }
@@ -60,7 +79,7 @@ export class TransactionPage extends Component {
 
     render() {
         if (this.state.route_Management) {
-            return <Redirect push to="/mp" />;
+            return <Redirect push to="/" />;
         }
         return (
             <div id="page">
@@ -73,7 +92,7 @@ export class TransactionPage extends Component {
                             <span className="input-group-prepend">
                                 <span className="input-group-text">$</span>
                             </span>
-                            <input onChange = {this.setValue} type="number" className="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input onChange = {this.setValue} type="number" className="form-control" aria-label="Amount (to the nearest dollar)" value={this.state.value}>
                             </input>
                         </span>
                         <div className="btn-group btn-group-toggle col col-3" data-toggle="buttons" id="sign">
@@ -97,6 +116,7 @@ export class TransactionPage extends Component {
                                 name="repeated"
                                 id="spontaneous"
                                 autoComplete="off"
+                                onChange={this.setPositive}
                                 checked = {this.state.spontaneous}
                                 onClick = {this.setSpontaneous}/>
                             Spontaneous
@@ -108,6 +128,7 @@ export class TransactionPage extends Component {
                                 name="repeated"
                                 id="regular"
                                 autoComplete="off"
+                                onChange={this.setNegative}
                                 checked={!this.state.spontaneous}
                                 onClick = {this.setRegular}/>
                             Regular
@@ -118,30 +139,6 @@ export class TransactionPage extends Component {
                 <button type="button" className="btn btn-primary" onClick = {this.routeManagement}>
                     Confirm
                 </button>
-
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#redAlert">
-                    Launch demo modal
-                </button>
-
-                <div className="modal fade" id="redAlert" tabindex="-1" role="dialog" aria-labelledby="redAlertLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="redAlertLabel">Warning</h5>
-                            </div>
-                            <div className="modal-body">
-                                <p>
-                                    This purchase exceeds your wallet's balance. 
-                                    <br/>
-                                    Money will be drawn from your savings.
-                                </p>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Confirm</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         );
     }
