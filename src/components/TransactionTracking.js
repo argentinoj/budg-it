@@ -44,7 +44,7 @@ export class TransactionItem{
         return this.state.amount;
     }
 
-
-
-
+    getTitle(){
+        return this.state.title;
+    }
 };
