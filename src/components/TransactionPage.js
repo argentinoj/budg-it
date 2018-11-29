@@ -97,13 +97,13 @@ export class TransactionPage extends Component {
                             </input>
                         </span>
                         <div className="btn-group btn-group-toggle col col-3" data-toggle="buttons" id="sign">
-                            <label className="btn btn-success active" onClick={this.setPositive}>
+                            <button type = "button" className="btn btn-success" onClick={this.setPositive}>
                                 +
-                            </label>
+                            </button>
 
-                            <label className="btn btn-danger" onClick={this.setNegative}>   
+                            <button type = "button" className="btn btn-danger" onClick={this.setNegative}>   
                                 -
-                            </label>
+                            </button>
                         </div>
                     </form>
 
@@ -111,29 +111,23 @@ export class TransactionPage extends Component {
                 <div id="regularity">
 
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label className="btn btn-primary active">
-                            <input
-                                type="radio"
+                        
+                            <button
+                                className="btn btn-outline-warning"
+                                type="button"
                                 name="repeated"
                                 id="spontaneous"
-                                autoComplete="off"
-                                onChange={this.setPositive}
-                                checked = {this.state.spontaneous}
-                                onClick = {this.setSpontaneous}/>
-                            Spontaneous
-                        </label>
+                                onClick = {this.setSpontaneous}>
+                            Spontaneous</button>
 
-                        <label className="btn btn-primary">
-                            <input
-                                type="radio"
+                        
+                            <button
+                                className="btn btn-outline-warning"
+                                type="button"
                                 name="repeated"
                                 id="regular"
-                                autoComplete="off"
-                                onChange={this.setNegative}
-                                checked={!this.state.spontaneous}
-                                onClick = {this.setRegular}/>
-                            Regular
-                        </label>
+                                onClick = {this.setRegular}>
+                            Regular</button>
                     </div>
                 </div>
 

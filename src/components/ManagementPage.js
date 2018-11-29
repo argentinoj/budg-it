@@ -72,7 +72,7 @@ export class ManagementPage extends Component{
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
         }
 
-        if(this.state.transactionList.length == 0){
+        else if(this.state.transactionList.length == 0){
             suggestion = "Try making some transactions to help us make suggestions."
         }
         else {
@@ -161,7 +161,7 @@ export class ManagementPage extends Component{
                                 {trans.state.title + " | " + 
                                 (trans.state.amount < 0 ? " - $" : " + $") + 
                                 String(Math.abs(trans.state.amount)) + " | " +
-                                (trans.state.spontaneous ? "Regular" : "Spontaneous")} 
+                                (trans.state.spontaneous ? "Spontaneous" : "Regular")} 
                             </li>
                             )
                         ):(<div></div>)
