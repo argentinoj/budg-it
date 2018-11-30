@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {ManagementPage} from './ManagementPage.js'
 import { Redirect } from "react-router";
 import './HomePage.css';
 
@@ -39,9 +38,8 @@ export class HomePage extends Component{
     }
 
     //Routes to the transaction page
-    placeHolder = () => {
+    routeToTransaction = () => {
         console.log("Will Route To Management Page");
-        //this.props.setTotalAmount(this.state.wallet);
         this.setState({redirect: true})
     }
 
@@ -50,9 +48,7 @@ export class HomePage extends Component{
         this.setState({routeToManagement: true})
     }
 
-
     render(){
- 
         // Proper calls for routing purposes
         if (this.state.redirect) {
             return <Redirect push to="/t" />;
@@ -67,7 +63,7 @@ export class HomePage extends Component{
             <span className = "Menu" onClick = {this.routeToManagement}>≡  </span>
             <span className = "Head">budge.it</span>
             <div className = "Value">{this.state.wallet_sign}${this.state.wallet}</div>
-            <div className = "Footer" onClick = {this.placeHolder}>∇</div>
+            <div className = "Footer" onClick = {this.routeToTransaction}>∇</div>
         </div>
         );
     }

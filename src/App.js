@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {ManagementPage} from './components/ManagementPage';
 import {HomePage} from './components/HomePage';
 import {TransactionPage} from './components/TransactionPage'
-import logo from './logo.svg';
 import { TransactionItem } from './components/TransactionTracking';
 
 import './App.css';
@@ -22,8 +21,6 @@ class App extends Component {
     this.receiveTotal = this.receiveTotal.bind(this);
     this.receivePercentage = this.receivePercentage.bind(this);
     this.receiveTransaction = this.receiveTransaction.bind(this);
-    
-    
   }
   //built in function to save all pertinent info into local storage
   componentWillMount(){
@@ -63,7 +60,6 @@ class App extends Component {
     localStorage.setItem("ls",null);
     this.setState({transaction: []});
   }
-
 
   render() {
     //Adds the ability to route to the different compnent pages
