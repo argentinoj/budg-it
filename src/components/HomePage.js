@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {ManagementPage} from './ManagementPage.js'
 import { Redirect } from "react-router";
 import './HomePage.css';
 
@@ -19,7 +18,6 @@ export class HomePage extends Component{
         this.updateWallet = this.updateWallet.bind(this);
     }
 
-
     componentWillMount(){
         this.updateWallet();
     }
@@ -27,7 +25,6 @@ export class HomePage extends Component{
     updateWallet(){
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
-
 
     updateWalletSign = () => {
         if(this.state.wallet <= 0){
@@ -37,9 +34,8 @@ export class HomePage extends Component{
         }
     }
 
-    placeHolder = () => {
+    routeToTransaction = () => {
         console.log("Will Route To Management Page");
-        //this.props.setTotalAmount(this.state.wallet);
         this.setState({redirect: true})
     }
 
@@ -47,9 +43,7 @@ export class HomePage extends Component{
         this.setState({routeToManagement: true})
     }
 
-
     render(){
-
         if (this.state.redirect) {
             return <Redirect push to="/t" />;
           }
@@ -62,7 +56,7 @@ export class HomePage extends Component{
             <span className = "Menu" onClick = {this.routeToManagement}>≡  </span>
             <span className = "Head">budge.it</span>
             <div className = "Value">{this.state.wallet_sign}${this.state.wallet}</div>
-            <div className = "Footer" onClick = {this.placeHolder}>∇</div>
+            <div className = "Footer" onClick = {this.routeToTransaction}>∇</div>
         </div>
         );
     }

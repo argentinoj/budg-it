@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {ManagementPage} from './components/ManagementPage';
 import {HomePage} from './components/HomePage';
 import {TransactionPage} from './components/TransactionPage'
-import logo from './logo.svg';
 import { TransactionItem } from './components/TransactionTracking';
 
 import './App.css';
@@ -20,8 +19,6 @@ class App extends Component {
     this.receiveTotal = this.receiveTotal.bind(this);
     this.receivePercentage = this.receivePercentage.bind(this);
     this.receiveTransaction = this.receiveTransaction.bind(this);
-    
-    
   }
 
   componentWillMount(){
@@ -63,9 +60,7 @@ class App extends Component {
     this.setState({transaction: []});
   }
 
-
   render() {
-
     return (
       <Router>
         <Switch>

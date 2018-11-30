@@ -15,9 +15,7 @@ export class ManagementPage extends Component{
             savingsColor: "white",
             routeHome: false,
             transactionList: [],
-
             }) //[new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
-
 
             this.addTransaction = this.addTransaction.bind(this);
             this.updateTransactionList = this.updateTransactionList.bind(this);
@@ -71,7 +69,7 @@ export class ManagementPage extends Component{
         if (this.state.chosen_savings_threshold > 75) {
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
         }
-        else if(this.state.transactionList.length == 0){
+        else if (this.state.transactionList.length == 0){
             suggestion = "Try making some transactions to help us make suggestions."
         }
         else {
@@ -79,23 +77,24 @@ export class ManagementPage extends Component{
             var maxTransactionIndex = 0;
             var transactions = this.state.transactionList;
 
-            for(var i = 0; i < transactions.length; i++){
-                if(Math.abs(transactions[i].getAmount()) > maxTransaction){
+            for (var i = 0; i < transactions.length; i++){
+                if (Math.abs(transactions[i].getAmount()) > maxTransaction){
                     maxTransaction = Math.abs(transactions[i].getAmount());
                     maxTransactionIndex = i;
                 }
             }
-            if(maxTransaction >= 5000){
+            if (maxTransaction >= 5000){
                 suggestion = "You spent $" + maxTransaction + " on " + transactions[maxTransactionIndex].getTitle() + 
                 ". Consider making smaller purchases in the future.";
             }
-            else{
+            else {
                 var countObj = {};
-                for(var i = 0; i < transactions.length; i++){
-                    if(transactions[i].getAmount() < 0){
-                        if(transactions[i].getTitle().toLowerCase() in countObj){
-                            countObj[transactions[i].getTitle().toLowerCase()] = countObj[transactions[i].getTitle().toLowerCase()] + Math.abs(transactions[i].getAmount());
-                        }else{
+                for (var i = 0; i < transactions.length; i++){
+                    if (transactions[i].getAmount() < 0){
+                        if (transactions[i].getTitle().toLowerCase() in countObj){
+                            countObj[transactions[i].getTitle().toLowerCase()] = countObj[transactions[i].getTitle().toLowerCase()]
+                             + Math.abs(transactions[i].getAmount());
+                        } else {
                             countObj[transactions[i].getTitle().toLowerCase()] = Math.abs(transactions[i].getAmount());
                         }
                     }
@@ -103,15 +102,15 @@ export class ManagementPage extends Component{
                 console.log(countObj);
                 var maxTalliedTotal = 0;
                 var maxTalliedName = "";
-                for(var i = 0; i < transactions.length; i++){
-                    if(countObj[transactions[i].getTitle().toLowerCase()] > maxTalliedTotal){
+                for (var i = 0; i < transactions.length; i++){
+                    if (countObj[transactions[i].getTitle().toLowerCase()] > maxTalliedTotal){
                         maxTalliedTotal = countObj[transactions[i].getTitle().toLowerCase()];
                         maxTalliedName = transactions[i].getTitle().toLowerCase();
                     }
                 }
                 console.log(maxTalliedTotal);
                 console.log(maxTalliedName);
-                if(maxTalliedTotal >= 5000){
+                if (maxTalliedTotal >= 5000){
                     suggestion = "You spent " + maxTalliedTotal + " on multiple purchases of "+ maxTalliedName + ". Consider buying "+ 
                     "that item in less quantities.";
                 }
@@ -120,21 +119,19 @@ export class ManagementPage extends Component{
                     var regularPurchase = 0;
                     var spontaneousPurchase = 0;
 
-                    for(var i = 0; i < transactions.length; i++){
-                        if(!transactions[i].getSpontaneous()){
-                            if(transactions[i].getAmount() > 0)
-                                regularIncome += transactions[i].getAmount();
+                    for (var i = 0; i < transactions.length; i++){
+                        if (!transactions[i].getSpontaneous()){
+                            if (transactions[i].getAmount() > 0) regularIncome += transactions[i].getAmount();
                             else regularPurchase += transactions[i].getAmount();
                         }
-                        else if (transactions[i].getAmount() < 0) 
-                            spontaneousPurchase += transactions[i].getAmount();
+                        else if (transactions[i].getAmount() < 0) spontaneousPurchase += transactions[i].getAmount();
                     }
 
                     regularIncome = Math.abs(regularIncome);
                     regularPurchase = Math.abs(regularPurchase);
                     spontaneousPurchase = Math.abs(spontaneousPurchase);
 
-                    if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
+                    if (regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
                     else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
                 }
             } 
@@ -149,7 +146,6 @@ export class ManagementPage extends Component{
     }
 
     render(){
-
         localStorage.setItem("hi", this.state.chosen_savings_threshold)
 
         if (this.state.routeHome) {
@@ -192,8 +188,6 @@ export class ManagementPage extends Component{
                     </div>
                 </div> 
             </form>
-            
-
         </div>
         );
     }

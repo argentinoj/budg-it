@@ -35,7 +35,6 @@ export class TransactionPage extends Component {
         console.log("Negative")
         this.setState({positive: false})
     }
-    //amount name boolean zero
 
     setValue = (e) => {
         this.setState({value: e.target.value})
@@ -97,19 +96,20 @@ export class TransactionPage extends Component {
                                 type="number" 
                                 className="form-control"
                                 aria-label="Amount (to the nearest dollar)" 
+                                min="0"
                                 value={this.state.value}/>
                         </span>
    
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <button type='button' 
-                                className="btn btn-success active" 
-                                name="sign" 
-                                id="positive" 
-                                autoComplete="off" 
-                                checked={this.state.positive} 
-                                onClick={this.setPositive}>
-                                +
-                            </button>
+                            <button type='button' 
+                                    className="btn btn-success active" 
+                                    name="sign" 
+                                    id="positive" 
+                                    autoComplete="off" 
+                                    checked={this.state.positive} 
+                                    onClick={this.setPositive}>
+                                    +
+                                </button>
 
                             <button type='button' 
                                 className="btn btn-danger" 
