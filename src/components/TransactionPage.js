@@ -7,6 +7,7 @@ import swal from 'sweetalert2'
 export class TransactionPage extends Component {
     constructor() {
         super();
+        //proper member variables
         this.state = ({
             value: 0, 
             positive: false, 
@@ -15,27 +16,30 @@ export class TransactionPage extends Component {
             route_management: false,
             wallet: 0,
         });
+        //bind function for state setting
         this.updateWallet = this.updateWallet.bind(this);
     }
 
+    //built in function to run when the parent state changes
     componentWillMount(){
         this.updateWallet();
     }
 
+    //updates the spendable amount from the homepage
     updateWallet(){
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
 
+    //FOR ALL BELOW FUNCTIONS
+    //These functions get run every time you press a button to simply set member variables
+    //No further commenting is needed
     setPositive = () => {
-        console.log("Positive")
         this.setState({positive: true})
     }
 
     setNegative = () => {
-        console.log("Negative")
         this.setState({positive: false})
     }
-    //amount name boolean zero
 
     setValue = (e) => {
         this.setState({value: e.target.value})
@@ -53,6 +57,7 @@ export class TransactionPage extends Component {
         this.setState({spontaneous: false})
     }
 
+    //Send the transaction to the parent class
     sendTransaction = () => {   
         var temp = 0;
         if(this.state.positive){
@@ -63,6 +68,7 @@ export class TransactionPage extends Component {
         this.props.receiveTransaction(new TransactionItem(temp, this.state.name, this.state.spontaneous, 0));
     }
 
+    //manage routing as well as empty wallet checks to make sure you don't spend over your alotted limit
     routeManagement = () => {
         if (!this.state.positive && this.state.wallet < this.state.value){
             swal({
@@ -77,12 +83,14 @@ export class TransactionPage extends Component {
     }
 
     render() {
+        //routing applied if you want to switch pages
         if (this.state.route_Management) {
             return <Redirect push to="/mp" />;
         }
         return (
             <div id="page">
                 <div id="header">
+                {/* input for the transaction name */}
                     <input onChange = {this.setName} type = "text" defaultValue="Transaction"></input>
                 </div>
                 <div className="input-group row justify-content-md-center row" id="transaction">
@@ -97,19 +105,20 @@ export class TransactionPage extends Component {
                                 type="number" 
                                 className="form-control"
                                 aria-label="Amount (to the nearest dollar)" 
+                                min="0"
                                 value={this.state.value}/>
                         </span>
-   
+                    {/* Input buttons for + and - signs */}
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <button type='button' 
-                                className="btn btn-success active" 
-                                name="sign" 
-                                id="positive" 
-                                autoComplete="off" 
-                                checked={this.state.positive} 
-                                onClick={this.setPositive}>
-                                +
-                            </button>
+                            <button type='button' 
+                                    className="btn btn-success active" 
+                                    name="sign" 
+                                    id="positive" 
+                                    autoComplete="off" 
+                                    checked={this.state.positive} 
+                                    onClick={this.setPositive}>
+                                    +
+                                </button>
 
                             <button type='button' 
                                 className="btn btn-danger" 
@@ -127,7 +136,7 @@ export class TransactionPage extends Component {
                 <div className="input-group row justify-content-md-center row" id="regularity">
 
                     <form className="form-inline">
-                    
+                {/* Input buttons for spontaneous vs regular */}
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
                             <button type='button' 
                                 className="btn btn-primary active" 
