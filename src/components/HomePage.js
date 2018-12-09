@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import { Redirect } from "react-router";
 import './HomePage.css';
 
-export class HomePage extends Component{
-    constructor(){
+export class HomePage extends Component {
+    constructor() {
         super();
         //State that holds current info (member variables)
         this.state = ({
@@ -19,12 +19,12 @@ export class HomePage extends Component{
     }
 
     //built in react function that runs every time a parent class state changes
-    componentWillMount(){
+    componentWillMount() {
         this.updateWallet();
     }
 
     //updates the total wallet or spendable amount to be shown
-    updateWallet(){
+    updateWallet() {
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
 
@@ -48,7 +48,7 @@ export class HomePage extends Component{
         this.setState({routeToManagement: true})
     }
 
-    render(){
+    render() {
         // Proper calls for routing purposes
         if (this.state.redirect) {
             return <Redirect push to="/t" />;

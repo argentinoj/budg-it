@@ -6,8 +6,8 @@ import './ManagementPage.css';
 import swal from 'sweetalert2'
 import { TransactionItem } from './TransactionTracking';
 
-export class ManagementPage extends Component{
-    constructor(){
+export class ManagementPage extends Component {
+    constructor() {
         super();
         //state to hold member variables
         this.state = ({
@@ -26,7 +26,7 @@ export class ManagementPage extends Component{
     }
 
     //function to run every time the component parent state changes
-    componentWillMount(){
+    componentWillMount() {
         this.updateTransactionList();
         this.setState({chosen_savings_threshold: localStorage.getItem("hi")})
     }
@@ -159,7 +159,7 @@ export class ManagementPage extends Component{
         })
     }
     //render function to render the components
-    render(){
+    render() {
         //local storage to save items
         localStorage.setItem("hi", this.state.chosen_savings_threshold)
         //appropriate routing

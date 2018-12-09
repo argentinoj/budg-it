@@ -1,5 +1,5 @@
 //object that contains a transaction item information
-export class TransactionItem{
+export class TransactionItem {
     constructor(_amount, _title, _spontaneous, _id){
 
         this.state = ({
@@ -10,15 +10,15 @@ export class TransactionItem{
         });
     }
     //getter functions to get the values throughout the rest of the program
-    getAmount(){
+    getAmount() {
         return this.state.amount;
     }
 
-    getTitle(){
+    getTitle() {
         return this.state.title;
     }
 
-    getSpontaneous(){
+    getSpontaneous() {
         return this.state.spontaneous;
     }
 };

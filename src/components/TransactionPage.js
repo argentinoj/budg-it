@@ -21,12 +21,12 @@ export class TransactionPage extends Component {
     }
 
     //built in function to run when the parent state changes
-    componentWillMount(){
+    componentWillMount() {
         this.updateWallet();
     }
 
     //updates the spendable amount from the homepage
-    updateWallet(){
+    updateWallet() {
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
     }
 
