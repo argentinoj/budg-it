@@ -1,5 +1,3 @@
-import React, {Component} from 'react';
-import './TransactionTracking.css';
 //object that contains a transaction item information
 export class TransactionItem{
     constructor(_amount, _title, _spontaneous, _id){
@@ -10,7 +8,6 @@ export class TransactionItem{
             spontaneous: _spontaneous,
             id: _id,
         });
-
     }
     //getter functions to get the values throughout the rest of the program
     getAmount(){

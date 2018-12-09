@@ -16,6 +16,7 @@ export class ManagementPage extends Component{
             savingsColor: "white",
             routeHome: false,
             transactionList: [],
+          
             //example transaction item
             }) //[new TransactionItem(-30, "Food", true, 0), new TransactionItem(400, "Paycheck", false, 1)];
 
@@ -87,13 +88,13 @@ export class ManagementPage extends Component{
             var maxTransactionIndex = 0;
             var transactions = this.state.transactionList;
 
-            for(var i = 0; i < transactions.length; i++){
-                if(Math.abs(transactions[i].getAmount()) > maxTransaction){
+            for (var i = 0; i < transactions.length; i++){
+                if (Math.abs(transactions[i].getAmount()) > maxTransaction){
                     maxTransaction = Math.abs(transactions[i].getAmount());
                     maxTransactionIndex = i;
                 }
             }
-            if(maxTransaction >= 5000){
+            if (maxTransaction >= 5000){
                 suggestion = "You spent $" + maxTransaction + " on " + transactions[maxTransactionIndex].getTitle() + 
                 ". Consider making smaller purchases in the future.";
             }
@@ -112,8 +113,8 @@ export class ManagementPage extends Component{
                 //Find the item that you spent the most on
                 var maxTalliedTotal = 0;
                 var maxTalliedName = "";
-                for(var i = 0; i < transactions.length; i++){
-                    if(countObj[transactions[i].getTitle().toLowerCase()] > maxTalliedTotal){
+                for (var i = 0; i < transactions.length; i++){
+                    if (countObj[transactions[i].getTitle().toLowerCase()] > maxTalliedTotal){
                         maxTalliedTotal = countObj[transactions[i].getTitle().toLowerCase()];
                         maxTalliedName = transactions[i].getTitle().toLowerCase();
                     }
@@ -128,6 +129,7 @@ export class ManagementPage extends Component{
                     var regularIncome = 0;
                     var regularPurchase = 0;
                     var spontaneousPurchase = 0;
+                  
                     //get totals for each of these values
                     for(var i = 0; i < transactions.length; i++){
                         if(!transactions[i].getSpontaneous()){
@@ -135,13 +137,13 @@ export class ManagementPage extends Component{
                                 regularIncome += transactions[i].getAmount();
                             else regularPurchase += transactions[i].getAmount();
                         }
-                        else if (transactions[i].getAmount() < 0) 
-                            spontaneousPurchase += transactions[i].getAmount();
+                        else if (transactions[i].getAmount() < 0) spontaneousPurchase += transactions[i].getAmount();
                     }
                     //make sure we use the absolute value to remove any negatives
                     regularIncome = Math.abs(regularIncome);
                     regularPurchase = Math.abs(regularPurchase);
                     spontaneousPurchase = Math.abs(spontaneousPurchase);
+
                     //Test them against one another and make the proper suggestion
                     if(regularIncome < regularPurchase) suggestion = "You're spending more than you earn on a regular basis.";
                     else if (regularIncome < spontaneousPurchase) suggestion = "You're impulse buying more than you regularly earn.";
@@ -205,8 +207,6 @@ export class ManagementPage extends Component{
                     </div>
                 </div> 
             </form>
-            
-
         </div>
         );
     }
