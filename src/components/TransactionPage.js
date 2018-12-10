@@ -43,7 +43,7 @@ export class TransactionPage extends Component {
     //No further commenting is needed
 
     signChange = (e) => {
-        if(e.target.value == "positive"){
+        if(e.target.value === "positive"){
             this.setState({
                 positive: true,
                 posState: "active",
@@ -60,7 +60,7 @@ export class TransactionPage extends Component {
     }
 
     regularityChange = (e) =>{
-        if(e.target.value == "spontaneous"){
+        if(e.target.value === "spontaneous"){
             this.setState({
                 spontaneous: true,
                 spontState: "active",
