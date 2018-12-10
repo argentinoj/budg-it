@@ -1,10 +1,22 @@
+<<<<<<< HEAD
 #page {
     padding: 1px;
     /* width: 100%; */
-    text-align: center;
-    margin: 1%;
+=======
+#header {
+    font-size: 400%;
+    font-weight: 500;
 }
 
+.transaction {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+>>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
+    text-align: center;
+}
+
+<<<<<<< HEAD
 #header {
     color: black;
     font-size: 200%;
@@ -16,14 +28,60 @@
     white-space: nowrap;
     overflow-x: auto;
     text-align: center;
-
-}
-
-.form-control {
-    margin: 1%;
+=======
+.transaction-item{
+    display: inline-block;
+    margin: 10px auto;
     width: 100%;
 }
 
-/* .regularity{
+.btn-green {
+    background-color: #3bbf28;
+    color: white;
+}
+>>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
 
-} */
+.btn-green.active,
+.btn-green:active,
+.btn-green:hover {
+  color: white;
+  background-color: #28801b;
+}
+
+<<<<<<< HEAD
+.form-control {
+    margin: 1%;
+    width: 100%;
+=======
+.btn-red {
+    background-color: #cc2d21;
+    color: white;
+>>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
+}
+.btn-red.active,
+.btn-red:active,
+.btn-red:hover {
+  color: white;
+  background-color: #982219;
+}
+
+
+.btn-blue {
+    background-color: #339de5;
+    color: white;
+}
+.btn-blue.active,
+.btn-blue:active,
+.btn-blue:hover {
+  color: white;
+  background-color: #287ab2;
+}
+
+
+#sign{
+    float: left;
+}
+
+#reg{
+    float: right;
+}

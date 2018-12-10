@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect } from "react-router";
+import './Global.css'
 import './HomePage.css';
 
 export class HomePage extends Component {
@@ -24,8 +25,15 @@ export class HomePage extends Component {
     }
 
     //updates the total wallet or spendable amount to be shown
+<<<<<<< HEAD
     updateWallet() {
         this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
+=======
+    updateWallet(){
+        this.setState(
+            {wallet: Math.round(100 * (100 - this.props.current_savings_percent) / 100 * this.props.total_wallet_amount) / 100}
+        )
+>>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
     }
 
     //Updates the plus and minus sign on the home page
@@ -59,11 +67,14 @@ export class HomePage extends Component {
         
         //return function to render the components
         return(
-        <div className = "BackGround">
-            <span className = "Menu" onClick = {this.routeToManagement}>≡  </span>
-            <span className = "Head">budge.it</span>
+        <div className = "page">
+            <span className = "Menu" onClick = {this.routeToManagement}>≡</span>
+            <span className = "Head">budge.
+                <span className="green">i</span>
+                <span className='red'>t</span>
+            </span>
             <div className = "Value">{this.state.wallet_sign}${this.state.wallet}</div>
-            <div className = "Footer" onClick = {this.routeToTransaction}>∇</div>
+            <div className = "Footer" onClick = {this.routeToTransaction}>▼</div>
         </div>
         );
     }
