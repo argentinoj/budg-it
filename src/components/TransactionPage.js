@@ -15,6 +15,7 @@ export class TransactionPage extends Component {
             name: "Transaction", 
             spontaneous: true,
             route_management: false,
+            go_back: false,
             wallet: 0,
             posState: "",
             negState: "active",
@@ -108,16 +109,22 @@ export class TransactionPage extends Component {
         this.setState({route_Management: true});
     }
 
+    goBack = () => { 
+        this.setState({go_back: true});
+    }
+
     render() {
         //routing applied if you want to switch pages
         if (this.state.route_Management) {
             return <Redirect push to="/mp" />;
         }
+        if (this.state.go_back){
+            return <Redirect push to="/" />;
+        }
         return (
             <div className="page">
-                <div id="header">
-                    Transaction
-                </div>
+                <span className = "Menu" onClick = {this.goBack}>≡</span>
+                <span id="header">Transaction</span>
                 <div className="form-group transaction">
                     <div className="row form-row name">
                         <div className="transaction-item">
