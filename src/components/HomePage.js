@@ -62,8 +62,8 @@ export class HomePage extends Component{
         
         //return function to render the components
         return(
-        <div className = "BackGround">
-            <span className = "Menu" onClick = {this.routeToManagement}>≡  </span>
+        <div className = "page">
+            <span className = "Menu" onClick = {this.routeToManagement}>≡</span>
             <span className = "Head">budge.
                 <span className="green">i</span>
                 <span className='red'>t</span>

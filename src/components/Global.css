@@ -14,3 +14,20 @@
     font-family: 'Futura PT', 'Didact Gothic', 'Open Sans', sans-serif;
     color: #262626;
 }
+
+.page{
+    width: 90%;
+    text-align: center;
+    margin: 5% auto;
+}
+
+.Menu {
+    font-size: 400%;
+    text-align: left;
+    margin-right: 30px;
+    width: 6%;
+    color: #262626;
+}
+.Menu:Hover {
+    cursor: pointer;
+}
