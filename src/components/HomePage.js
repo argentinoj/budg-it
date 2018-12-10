@@ -68,7 +68,7 @@ export class HomePage extends Component{
                 <span className="green">i</span>
                 <span className='red'>t</span>
             </span>
-            <div className = "Value">{this.state.walletSign}${this.state.wallet}</div>
+            <div className = "Value">{this.state.walletSign}${Math.abs(this.state.wallet)}</div>
             <div className = "Footer" onClick = {this.routeToTransaction}>▼</div>
         </div>
         );
