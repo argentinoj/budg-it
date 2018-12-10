@@ -31,14 +31,6 @@ export class HomePage extends Component{
         )
     }
 
-    //Updates the plus and minus sign on the home page
-    updateWalletSign = () => {
-        if(this.state.wallet <= 0){
-            this.setState({walletSign: '-'});
-        }else{
-            this.setState({walletSign: '+'});
-        }
-    }
 
     //Routes to the transaction page
     routeToTransaction = () => {
@@ -68,7 +60,7 @@ export class HomePage extends Component{
                 <span className="green">i</span>
                 <span className='red'>t</span>
             </span>
-            <div className = "Value">{this.state.walletSign}${Math.abs(this.state.wallet)}</div>
+            <div className = "Value">${(this.state.wallet)}</div>
             <div className = "Footer" onClick = {this.routeToTransaction}>▼</div>
         </div>
         );
