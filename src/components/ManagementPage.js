@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { Redirect } from "react-router";
+import './Global.css'
 import './radial.js';
 import './radial.css'
 import './ManagementPage.css';
 import swal from 'sweetalert2'
-import { TransactionItem } from './TransactionTracking';
 
 export class ManagementPage extends Component{
     constructor(){
@@ -80,7 +80,7 @@ export class ManagementPage extends Component{
         if (this.state.chosen_savings_threshold > 75) {
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
         }//have to make transactions for the suggestions to work
-        else if(this.state.transactionList.length == 0){
+        else if(this.state.transactionList.length === 0){
             suggestion = "Try making some transactions to help us make suggestions."
         }
         else {//Next suggestion that tests for abnormally large purchases
@@ -168,9 +168,12 @@ export class ManagementPage extends Component{
         }
         //return the html
         return(
-        <div className = "Page">
-            <div className = "doneButton" onClick = {this.route}>≡</div>
-            <div className = "yourSavings">Your Savings</div>
+        <div className = "page">
+            <div className = "Header">
+                <span className = "Menu" onClick = {this.route}>≡</span>
+                <span className = "yourSavings">Your Savings</span>
+            </div>
+
             <div>
                 <div class="big">
                     <div class="pie pie--value pie--disc" style={{"--percent":this.state.chosen_savings_threshold,"--amount":(this.state.chosen_savings_threshold/100 * this.state.total_wallet_amount)}}></div>
@@ -181,21 +184,28 @@ export class ManagementPage extends Component{
                 {/* Shows the savings percentage and the radial bar */}
                 <div class="form-group">
                     <label for="formControlRange">Enter Savings Percentage: {this.state.chosen_savings_threshold} %</label>
-                    <input onChange = {this.setThreshold} type="range" defaultValue = {this.state.chosen_savings_threshold} max = "100" class="form-control-range" id="formControlRange"></input>   
+                    <input onChange = {this.setThreshold} type="range" defaultValue = {this.state.chosen_savings_threshold} max = "100" class="slider form-control-range" id="formControlRange"></input>   
                 </div>
 
                 {/* Shows the history table */}
                 <div class="TransactionTable">
-                    <span align="left" style ={{color: "gray", marginRight: "10px"}}>History:</span>
-                    <span><button id = "historyButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button></span>
-                    <span><button type="button" id = "historyButton" className="btn btn-outline-secondary" onClick = {this.makeSuggestions}>
-                        Suggestion
-                    </button></span>
+                    <div className="TableHead">
+                        <span align="left" id="TableTitle">History:</span>
+                        <span>
+                            <button id = "historyButton" className="btn btn-outline-secondary" onClick = {this.clearHistory}>Clear</button>
+                        </span>
+                        <span>
+                            <button type="button" id = "historyButton" className="btn btn-outline-secondary" onClick = {this.makeSuggestions}>
+                                Suggestion
+                            </button>
+                        </span>
+                    </div>
+
                     {/* Mapping trans to every item in the list and displaying it */}
                     <div align="left" style ={{color: "black"}}> {
                         this.state.transactionList.length > 0 ? (
                         this.state.transactionList.map((trans) => 
-                            <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "red" : "green"}}>  
+                            <li key = {trans.state.id} style={{color: trans.state.amount < 0 ? "#cc2d21" : "#3bbf28"}}>  
                                 {trans.state.title + " | " + 
                                 (trans.state.amount < 0 ? " - $" : " + $") + 
                                 String(Math.abs(trans.state.amount)) + " | " +

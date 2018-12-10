@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Global.css'
 import './TransactionPage.css';
 import {TransactionItem} from './TransactionTracking';
 import { Redirect } from "react-router";
@@ -15,6 +16,10 @@ export class TransactionPage extends Component {
             spontaneous: true,
             route_management: false,
             wallet: 0,
+            posState: "",
+            negState: "active",
+            spontState: "active",
+            regState: ""
         });
         //bind function for state setting
         this.updateWallet = this.updateWallet.bind(this);
@@ -27,34 +32,55 @@ export class TransactionPage extends Component {
 
     //updates the spendable amount from the homepage
     updateWallet(){
-        this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
+        this.setState({
+            wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)
+        });
     }
 
     //FOR ALL BELOW FUNCTIONS
     //These functions get run every time you press a button to simply set member variables
     //No further commenting is needed
-    setPositive = () => {
-        this.setState({positive: true})
+
+    signChange = (e) => {
+        if(e.target.value == "positive"){
+            this.setState({
+                positive: true,
+                posState: "active",
+                negState: ""
+            });
+        }
+        else{
+            this.setState({
+                positive: false,
+                posState: "",
+                negState: "active"
+            });
+        }
     }
 
-    setNegative = () => {
-        this.setState({positive: false})
+    regularityChange = (e) =>{
+        if(e.target.value == "spontaneous"){
+            this.setState({
+                spontaneous: true,
+                spontState: "active",
+                regState: ""
+            });
+        }
+        else{
+            this.setState({
+                spontaneous: false,
+                spontState: "",
+                regState: "active"
+            });
+        }
     }
 
     setValue = (e) => {
-        this.setState({value: e.target.value})
+        this.setState({value: e.target.value});
     }
 
     setName = (e) => {
-        this.setState({name: e.target.value})
-    }
-
-    setSpontaneous = () => {
-        this.setState({spontaneous: true})
-    }
-
-    setRegular = () => {
-        this.setState({spontaneous: false})
+        this.setState({name: e.target.value});
     }
 
     //Send the transaction to the parent class
@@ -88,84 +114,94 @@ export class TransactionPage extends Component {
             return <Redirect push to="/mp" />;
         }
         return (
-            <div id="page">
+            <div className="page">
                 <div id="header">
-                {/* input for the transaction name */}
-                    <input onChange = {this.setName} type = "text" defaultValue="Transaction"></input>
+                    Transaction
                 </div>
-                <div className="input-group row justify-content-md-center row" id="transaction">
-                    <form className="form-inline">
-
-                        <span className="input-group col col-9" id="money">
-                            <span className="input-group-prepend">
-                                <span className="input-group-text">$</span>
-                            </span>
+                <div className="form-group transaction">
+                    <div className="row form-row name">
+                        <div className="transaction-item">
+                        <span className="input-group input-group-lg">
+                            {/* input for the transaction name */}
                             <input 
-                                onChange = {this.setValue} 
-                                type="number" 
+                                onChange = {this.setName} 
+                                type = "text" 
                                 className="form-control"
-                                aria-label="Amount (to the nearest dollar)" 
-                                min="0"
-                                value={this.state.value}/>
+                                placeholder = "Transaction"
+                                aria-label="Transaction Name"/>
                         </span>
-                    {/* Input buttons for + and - signs */}
-                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button type='button' 
-                                    className="btn btn-success active" 
-                                    name="sign" 
-                                    id="positive" 
-                                    autoComplete="off" 
+                        </div>
+                    </div>
+
+                    <div className="row form-row money">
+                        <div className="transaction-item">
+                            <span className="input-group">
+                                <span className="input-group-prepend">
+                                    <span className="input-group-text">$</span>
+                                </span>
+                                <input 
+                                    onChange = {this.setValue} 
+                                    type="number" 
+                                    className="form-control"
+                                    aria-label="Amount (to the nearest dollar)" 
+                                    min="0"
+                                    value={this.state.value}/>
+                                <span className="input-group-append">
+                                    <span className="input-group-text">.00</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="row form-row regularity">
+                        <div className="transaction-item">
+                            {/* Input buttons for + and - signs */}
+                            <span className="btn-group btn-group-toggle" id="sign" data-toggle="buttons">
+                                <button type='radio' 
+                                    className={"btn btn-green " + this.state.posState}
+                                    value="positive" 
                                     checked={this.state.positive} 
-                                    onClick={this.setPositive}>
+                                    onClick={this.signChange}>
                                     +
                                 </button>
 
-                            <button type='button' 
-                                className="btn btn-danger" 
-                                name="sign" 
-                                id="negative" 
-                                autoComplete="off" 
-                                checked={!this.state.positive} 
-                                onClick={this.setNegative}>
-                                -
+                                <button type='radio' 
+                                    className={"btn btn-red " + this.state.negState}
+                                    value="negative" 
+                                    checked={!this.state.positive} 
+                                    onClick={this.signChange}>
+                                    -
+                                </button>
+                            </span>
+                            {/* Input buttons for spontaneous vs regular */}
+                            <span className="btn-group btn-group-toggle" id="reg" data-toggle="buttons">
+                                <button type='radio' 
+                                    className={"btn btn-blue " + this.state.spontState}
+                                    value="spontaneous" 
+                                    checked={this.state.spontaneous} 
+                                    onClick={this.regularityChange}>
+                                    Spontaneous
+                                </button>
+
+                                <button type='radio' 
+                                    className={"btn btn-blue " + this.state.regState}
+                                    value="regular" 
+                                    checked={!this.state.spontaneous} 
+                                    onClick={this.regularityChange}>
+                                    Regular
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="row form-row confirm">
+                        <div className="transaction-item">
+                            <button type="button" className="btn btn-blue btn-lg" onClick = {this.routeManagement}>
+                                Confirm
                             </button>
                         </div>
-                    </form>
-                </div>
-
-                <div className="input-group row justify-content-md-center row" id="regularity">
-
-                    <form className="form-inline">
-                {/* Input buttons for spontaneous vs regular */}
-                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button type='button' 
-                                className="btn btn-primary active" 
-                                name="regularity" 
-                                id="spontaneous" 
-                                autoComplete="off" 
-                                checked={this.state.spontaneous} 
-                                onClick={this.setSpontaneous}>
-                                Spontaneous
-                            </button>
-
-                            <button type='button' 
-                                className="btn btn-primary" 
-                                name="regularity" 
-                                id="regular" 
-                                autoComplete="off" 
-                                checked={!this.state.spontaneous} 
-                                onClick={this.setRegular}>
-                                Regular
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <br/>
-
-                <button type="button" className="btn btn-primary" onClick = {this.routeManagement}>
-                    Confirm
-                </button>
+                    </div>
+                </div> 
             </div>
         );
     }
