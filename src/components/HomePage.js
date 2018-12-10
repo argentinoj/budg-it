@@ -8,10 +8,10 @@ export class HomePage extends Component{
         super();
         //State that holds current info (member variables)
         this.state = ({
-            current_savings_percent: 0,
-            total_wallet_amount: 15000,
+            currentSavings: 0,
+            totalWallet: 15000,
             wallet: 15000,
-            wallet_sign: "+",
+            walletSign: "+",
             redirect: false,
             routeToManagement: false,
         });
@@ -34,9 +34,9 @@ export class HomePage extends Component{
     //Updates the plus and minus sign on the home page
     updateWalletSign = () => {
         if(this.state.wallet <= 0){
-            this.setState({wallet_sign: '-'});
+            this.setState({walletSign: '-'});
         }else{
-            this.setState({wallet_sign: '+'});
+            this.setState({walletSign: '+'});
         }
     }
 
@@ -68,7 +68,7 @@ export class HomePage extends Component{
                 <span className="green">i</span>
                 <span className='red'>t</span>
             </span>
-            <div className = "Value">{this.state.wallet_sign}${this.state.wallet}</div>
+            <div className = "Value">{this.state.walletSign}${this.state.wallet}</div>
             <div className = "Footer" onClick = {this.routeToTransaction}>▼</div>
         </div>
         );
