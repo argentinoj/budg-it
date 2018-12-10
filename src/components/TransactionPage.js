@@ -32,15 +32,10 @@ export class TransactionPage extends Component {
     }
 
     //updates the spendable amount from the homepage
-<<<<<<< HEAD
-    updateWallet() {
-        this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
-=======
     updateWallet(){
         this.setState({
             wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)
         });
->>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
     }
 
     //FOR ALL BELOW FUNCTIONS

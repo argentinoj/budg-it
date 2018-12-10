@@ -25,15 +25,10 @@ export class HomePage extends Component {
     }
 
     //updates the total wallet or spendable amount to be shown
-<<<<<<< HEAD
-    updateWallet() {
-        this.setState({wallet: ( (100-this.props.current_savings_percent)/100 * this.props.total_wallet_amount)})
-=======
     updateWallet(){
         this.setState(
             {wallet: Math.round(100 * (100 - this.props.current_savings_percent) / 100 * this.props.total_wallet_amount) / 100}
         )
->>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
     }
 
     //Updates the plus and minus sign on the home page

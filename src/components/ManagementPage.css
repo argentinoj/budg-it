@@ -1,60 +1,15 @@
-<<<<<<< HEAD
-.Page {
-    margin: 1%;
-}
-
-.form-group {
-    color: black;
-=======
 .Header {
     width: 100%;
 }
 .form-group {
->>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
     font-size: 150%;
     text-align: left;
 }
-<<<<<<< HEAD
-
 .SavingsDisplay {
-    color: black;
-=======
-.SavingsDisplay {
->>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
     text-align: center;
     font-size: 200%;
     margin-top: 5%;
 }
-<<<<<<< HEAD
-
-.TransactionTable {
-    text-align: left;
-    font-size: 100%;
-    font-family: futura;
-}
-
-.doneButton {
-    color: black;
-    font-size: 500%;
-    text-align: left;
-    width: 6%;
-    margin-left: 5%;
-    font-family: futura;
-}
-
-.doneButton:hover {
-    cursor: pointer;
-    font-family: futura;
-}
-
-.yourSavings {
-    color: black;
-    font-size: 200%;
-    font-family: futura;
-}
-
-#historyButton {
-=======
 .TransactionTable {
     text-align: left;
     font-size: 100%;
@@ -103,7 +58,6 @@
 
 .slider::-moz-range-thumb {
     width: 25px;
->>>>>>> 33e56e34a8258b82cc2cd9e7a486a7352f486293
     height: 25px;
     border-radius: 50%;
     background: #339de5;
