@@ -174,8 +174,8 @@ export class ManagementPage extends Component{
 
             <div>
                 <div class="big">
-                    <div class="pie pie--value pie--disc" style={{"--percent":this.state.chosen_savings_threshold,"--amount":( Math.round((this.state.chosen_savings_threshold/100) * (this.state.total_wallet_amount))) }}></div>
-                    {console.log(parseFloat(this.state.chosen_savings_threshold/100) * parseFloat(this.state.total_wallet_amount))}
+                    <div class="pie pie--value pie--disc" style={{"--percent":this.state.savingsThreshold,"--amount":( Math.round((this.state.savingsThreshold/100) * (this.state.totalWallet))) }}></div>
+                    {console.log(parseFloat(this.state.savingsThreshold/100) * parseFloat(this.state.totalWallet))}
                 </div>
             </div>
             <form>
