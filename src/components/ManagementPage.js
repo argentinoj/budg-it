@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { Redirect } from "react-router";
+import './Global.css'
 import './radial.js';
 import './radial.css'
 import './ManagementPage.css';
 import swal from 'sweetalert2'
-import { TransactionItem } from './TransactionTracking';
 
 export class ManagementPage extends Component{
     constructor(){
@@ -80,7 +80,7 @@ export class ManagementPage extends Component{
         if (this.state.chosen_savings_threshold > 75) {
             suggestion = "You're saving " + this.state.chosen_savings_threshold + "% of your income. Consider lowering that."
         }//have to make transactions for the suggestions to work
-        else if(this.state.transactionList.length == 0){
+        else if(this.state.transactionList.length === 0){
             suggestion = "Try making some transactions to help us make suggestions."
         }
         else {//Next suggestion that tests for abnormally large purchases

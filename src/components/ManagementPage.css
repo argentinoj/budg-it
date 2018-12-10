@@ -2,38 +2,32 @@
     margin: 1%;
 }
 .form-group{
-    color: black;
     font-size: 150%;
     text-align: left;
     margin: 5%;
-    font-family: futura;
 }
 .SavingsDisplay{
-    color: black;
     text-align: center;
     font-size: 200%;
     margin-top: 5%;
-    font-family: futura;
 }
 .TransactionTable{
     text-align: left;
     font-size: 100%;
-    font-family: futura;
-}.doneButton{
-    color: black;
+}
+.doneButton{
     font-size: 500%;
     text-align: left;
     width: 6%;
     margin-left: 5%;
-    font-family: futura;
-}.doneButton:hover{
+}
+.doneButton:hover{
     cursor: pointer;
-    font-family: futura;
-}.yourSavings{
-    color: black;
+}
+.yourSavings{
     font-size: 200%;
-    font-family: futura;
-}#historyButton{
+}
+#historyButton{
     height: 25px;
     font-size: 60%;
 }

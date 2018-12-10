@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Global.css'
 import './TransactionPage.css';
 import {TransactionItem} from './TransactionTracking';
 import { Redirect } from "react-router";
@@ -111,7 +112,7 @@ export class TransactionPage extends Component {
                     {/* Input buttons for + and - signs */}
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
                             <button type='button' 
-                                    className="btn btn-success active" 
+                                    className="btn btn-green active" 
                                     name="sign" 
                                     id="positive" 
                                     autoComplete="off" 
@@ -121,7 +122,7 @@ export class TransactionPage extends Component {
                                 </button>
 
                             <button type='button' 
-                                className="btn btn-danger" 
+                                className="btn btn-red" 
                                 name="sign" 
                                 id="negative" 
                                 autoComplete="off" 

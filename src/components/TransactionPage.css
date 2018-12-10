@@ -1,16 +1,15 @@
-#page{
+#page {
     padding: 1px;
     /* width: 100%; */
     text-align: center;
     margin: 1%;
 }
-#header{
-    color: black;
+#header {
     font-size: 200%;
     margin: 1%;
 }
 
-#transaction{ 
+#transaction {
     margin: 1%;
     white-space: nowrap;
     overflow-x: auto;
@@ -18,9 +17,19 @@
 
 }
 
-.form-control{
+.form-control {
     margin: 1%;
     width: 100%;
+}
+
+.btn-green {
+    background-color: #3bbf28;
+    color: white;
+}
+
+.btn-red {
+    background-color: #cc2d21;
+    color: white;
 }
 
 /* .regularity{
