@@ -27,7 +27,7 @@ export class HomePage extends Component{
     //updates the total wallet or spendable amount to be shown
     updateWallet(){
         this.setState(
-            {wallet: Math.round(100 * (100 - this.props.current_savings_percent) / 100 * this.props.total_wallet_amount) / 100}
+            { wallet: parseFloat((100 * (100 - this.props.current_savings_percent) / 100 * this.props.total_wallet_amount) / 100).toFixed(2) }
         )
     }
 
